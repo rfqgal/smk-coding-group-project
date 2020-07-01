@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.AppCompat.Light.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
@@ -12,14 +13,32 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="40dp"
+            android:text="LOGO"
+            android:textColor="@color/colorText"
+            android:textSize="40sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="80dp"
+            android:text="@string/lorem_ipsum"
+            android:textColor="@color/colorText" />
+
         <Button
             android:id="@+id/btn_google_login"
             style="@style/FirebaseUI.Button.AccountChooser.GoogleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginVertical="4dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:text="Sign In with Google"
             android:textAllCaps="true"
@@ -31,8 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginVertical="4dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="8dp"
             android:gravity="center"
             android:text="Sign In with Facebook"
             android:textAllCaps="true"

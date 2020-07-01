@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SMKCodingChallenge3TeamAlvan</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet\nLorem ipsum dolor sit amet\nLorem ipsum dolor sit amet</string>
 </resources>
