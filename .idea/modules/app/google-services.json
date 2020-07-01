@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "571453719602",
+    "firebase_url": "https://chalenge3-e740d.firebaseio.com",
+    "project_id": "chalenge3-e740d",
+    "storage_bucket": "chalenge3-e740d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571453719602:android:5c61ca04f6dbd0b395a82b",
+        "android_client_info": {
+          "package_name": "id.smkcoding.teamalvan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571453719602-9j2m9doavt081al7blkd59tegrrgjsls.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.smkcoding.teamalvan",
+            "certificate_hash": "c6dd7ac32ea89c10d689f12d50f86c37b324c67a"
+          }
+        },
+        {
+          "client_id": "571453719602-bblqdmb7ni9hbjgjjp343qu894r78240.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.smkcoding.teamalvan",
+            "certificate_hash": "05f6959378b0e79894d4747c1324d938ad3fc142"
+          }
+        },
+        {
+          "client_id": "571453719602-9f42elfa528kj0akhvbt02o6saeh2trn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoAqEI2uFe6wS8Aja5Vpjccy6D_BLMBww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "571453719602-9f42elfa528kj0akhvbt02o6saeh2trn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
