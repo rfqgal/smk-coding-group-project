@@ -18,6 +18,9 @@ import com.facebook.login.LoginResult
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import id.smkcoding.teamalvan.model.UsersModel
 import kotlinx.android.synthetic.main.activity_login.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -27,6 +30,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private var auth: FirebaseAuth? = null
     var callbackManager: CallbackManager? = null
 
+    lateinit var ref : DatabaseReference
     private val RC_SIGN_IN = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +41,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         progress.visibility = View.GONE
 
         auth = FirebaseAuth.getInstance() //Mendapakan Instance Firebase Auth
+        ref = FirebaseDatabase.getInstance().getReference()
         //printkeyhash()
         //Cek apakah sudah login atau belum
         if (auth!!.currentUser == null) {
@@ -100,6 +105,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show()
                 intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
+                prosesSave()
                 finish()
             } else { //Jika gagal login
                 progress.visibility = View.GONE
@@ -134,7 +140,37 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         } catch (e: NoSuchAlgorithmException) {
         }
     }
-    
+
+    private fun prosesSave() {
+
+        var dataUser = auth?.currentUser
+        var photo = dataUser?.photoUrl
+        var email = dataUser?.email
+        var name = dataUser?.displayName
+        var level = dataUser?.displayName
+
+        val getPhoto: String = photo.toString()
+        val getEmail: String = email.toString()
+        val getName: String = name.toString()
+        val getLevel: String = level.toString()
+
+        val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
+
+        if (getPhoto.isEmpty() && getEmail.isEmpty() && getName.isEmpty() && getLevel.isEmpty()) {
+            //Jika kosong, maka akan menampilkan pesan singkat berikut ini.
+//            Toast.makeText(this@MyFriendActivity,"Data tidak boleh ada yang kosong", Toast.LENGTH_SHORT).show()
+        } else {
+            val users = UsersModel(getPhoto, getEmail, getName, getLevel, getUserID)
+            //struktur databasenya adalah: ID >> Teman >> Key >> Data
+            ref.child(getUserID).child("tb_users").push().setValue(users).addOnCompleteListener {
+                Toast.makeText(this, "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show()
+            }
+            val intent = Intent (this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
 }
 
 
