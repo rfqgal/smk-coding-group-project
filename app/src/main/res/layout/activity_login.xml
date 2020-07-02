@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="40dp"
+            android:fontFamily="@font/saira_condensed_regular"
             android:text="LOGO"
             android:textColor="@color/colorText"
             android:textSize="40sp" />
@@ -34,7 +35,7 @@
             android:id="@+id/btn_google_login"
             style="@style/FirebaseUI.Button.AccountChooser.GoogleButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="28dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="40dp"
@@ -46,9 +47,9 @@
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/btn_facebook_login"
-            style="@style/FirebaseUI.Button.AccountChooser.FacebookButton"
+            style="@style/FacebookLoginButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="8dp"
