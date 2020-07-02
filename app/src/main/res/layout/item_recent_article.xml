@@ -14,52 +14,63 @@
         android:layout_margin="16dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_dokter_artikel_terbaru"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_profile" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_dokter_artikel_terbaru"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="dr. Rifky Galuh"
-                    android:textColor="@color/colorText"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:text="Just now"
-                    android:textSize="8sp" />
-            </LinearLayout>
-        </LinearLayout>
-
         <TextView
             android:id="@+id/tv_judul_artikel_terbaru"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lato"
             android:text="Lorem ipsum dolor sit amet"
+            android:layout_marginBottom="8dp"
             android:textColor="#555"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="16sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ditulis oleh : "
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+
+            <TextView
+                android:id="@+id/tv_dokter_artikel_terbaru"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="dr. Rifky Galuh"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="-7dp"
+                android:paddingEnd="-7dp"
+                android:paddingVertical="2dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_time"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/tv_jam_artikel_terbaru"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="07.00"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+
+            <TextView
+                android:id="@+id/tv_tanggal_artikel_terbaru"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01-01-2000"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
