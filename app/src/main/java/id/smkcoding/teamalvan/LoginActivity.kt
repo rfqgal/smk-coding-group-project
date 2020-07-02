@@ -46,7 +46,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
             finish()
         }
-        btn_google_login.setOnClickListener(this)
+        btn_google_login.setOnClickListener{
+            intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         btn_facebook_login.setOnClickListener{
             signIn()
         }

@@ -3,8 +3,6 @@ package id.smkcoding.teamalvan
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import id.smkcoding.teamalvan.api.UserFragment
-import java.text.FieldPosition
 
 class ViewPagerAdapter(fragment: FragmentActivity): FragmentStateAdapter(fragment) {
     private val JUMLAH_MENU = 2
