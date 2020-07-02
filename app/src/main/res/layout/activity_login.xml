@@ -44,7 +44,7 @@
             android:textAllCaps="true"
             android:textStyle="normal" />
 
-        <Button
+        <com.facebook.login.widget.LoginButton
             android:id="@+id/btn_facebook_login"
             style="@style/FirebaseUI.Button.AccountChooser.FacebookButton"
             android:layout_width="match_parent"
