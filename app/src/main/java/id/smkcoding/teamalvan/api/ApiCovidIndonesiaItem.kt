@@ -2,6 +2,7 @@ package id.smkcoding.teamalvan.api
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ApiCovidIndonesiaItem(
     @SerializedName("meninggal")
@@ -12,4 +13,4 @@ data class ApiCovidIndonesiaItem(
     val positif: String,
     @SerializedName("sembuh")
     val sembuh: String
-)
+) : Serializable
