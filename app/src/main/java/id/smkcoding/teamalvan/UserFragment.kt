@@ -1,10 +1,9 @@
 package id.smkcoding.teamalvan
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,7 +34,7 @@ class UserFragment: Fragment() {
 
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setHasOptionsMenu(true)
     }
 
     private fun signOut() {
@@ -44,4 +43,29 @@ class UserFragment: Fragment() {
         startActivity(intent)
     }
 
+    private fun confirmLogout() {
+        AlertDialog.Builder(activity)
+            .setTitle("Logout")
+            .setMessage("Apakah Anda yakin akan keluar?")
+            .setPositiveButton("Ya") { dialog, which -> signOut() }
+            .setNegativeButton("Tidak", null)
+            .show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_profile, menu)
+        return super.onCreateOptionsMenu(menu, menuInflater)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        setMode(item.itemId)
+        return true
+    }
+
+    private fun setMode(item: Int) {
+        when (item) {
+            R.id.menu_logout -> confirmLogout()
+        }
+    }
 }
