@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "571453719602-21i47d9alq9e74akl7kg0l9bo7a0fb4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.smkcoding.teamalvan",
+            "certificate_hash": "dcebe828915ca9833139ec1300f952cc566ad2a3"
+          }
+        },
+        {
           "client_id": "571453719602-9j2m9doavt081al7blkd59tegrrgjsls.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
