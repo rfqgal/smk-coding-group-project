@@ -123,7 +123,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun printkeyhash() {
         try {
-            val info = packageManager.getPackageInfo("com.example.chalenge2", PackageManager.GET_SIGNATURES)
+            val info = packageManager.getPackageInfo("id.smkcoding.teamalvan", PackageManager.GET_SIGNATURES)
             for (signature in info.signatures)
             {
                 val md: MessageDigest = MessageDigest.getInstance("SHA")
