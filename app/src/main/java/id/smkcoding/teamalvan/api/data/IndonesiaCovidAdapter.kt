@@ -1,10 +1,11 @@
-package id.smkcoding.teamalvan
+package id.smkcoding.teamalvan.api.data
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import id.smkcoding.teamalvan.R
 import id.smkcoding.teamalvan.api.ApiCovidIndonesiaItem
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_covid_indonesia.*
@@ -17,7 +18,11 @@ private val listener: (ApiCovidIndonesiaItem)-> Unit): RecyclerView.Adapter<Indo
         viewType: Int
     ) = ViewHolder(
         context,
-        LayoutInflater.from(context).inflate(R.layout.item_covid_indonesia, parent, false)
+        LayoutInflater.from(context).inflate(
+            R.layout.item_covid_indonesia,
+            parent,
+            false
+        )
     )
 
     override fun getItemCount(): Int {

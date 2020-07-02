@@ -7,18 +7,17 @@ import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import id.smkcoding.teamalvan.api.ApiCovidIndonesiaItem
-import id.smkcoding.teamalvan.api.data.IndonesiaCovidAdapter
+import id.smkcoding.teamalvan.api.ApiCovidProvinceItem
 import id.smkcoding.teamalvan.api.data.IndonesiaCovidService
+import id.smkcoding.teamalvan.api.data.ProvinceCovidAdapter
 import id.smkcoding.teamalvan.api.data.apiRequest
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_province.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeFragment: Fragment() {
+class ProvinceFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,32 +28,32 @@ class HomeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_province, container, false)
     }
 
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        callApiCovid()
+        callApiProvince()
     }
 
-    private fun callApiCovid() {
+    private fun callApiProvince() {
         val httpClient = OkHttpClient()
         val apiRequest = apiRequest<IndonesiaCovidService>(httpClient)
-        val call = apiRequest.getCovidData()
-        call.enqueue(object : Callback<List<ApiCovidIndonesiaItem>> {
-            override fun onFailure(call: Call<List<ApiCovidIndonesiaItem>>, t: Throwable) {
-                // Tampil toast
+        val call = apiRequest.getCovidProvince()
+        call.enqueue(object : Callback<List<ApiCovidProvinceItem>> {
+            override fun onFailure(call: Call<List<ApiCovidProvinceItem>>, t: Throwable) {
+
             }
 
             override fun onResponse(
-                call: Call<List<ApiCovidIndonesiaItem>>,
-                response: Response<List<ApiCovidIndonesiaItem>>
+                call: Call<List<ApiCovidProvinceItem>>,
+                response: Response<List<ApiCovidProvinceItem>>
             ) {
                 when {
                     response.isSuccessful ->
                         when {
                             response.body() != null ->
-                                displayCovidData(response.body()!!)
+                                displayCovidProvince(response.body()!!)
                             else -> {
                                 // Toast Berhasil
                             }
@@ -64,14 +63,13 @@ class HomeFragment: Fragment() {
                     }
                 }
             }
-
         })
     }
 
-    private fun displayCovidData(body: List<ApiCovidIndonesiaItem>) {
-        rv_covid_indonesia.layoutManager = LinearLayoutManager(context)
-        rv_covid_indonesia.adapter =
-            IndonesiaCovidAdapter(
+    private fun displayCovidProvince(body: List<ApiCovidProvinceItem>) {
+        rv_covid_province.layoutManager = LinearLayoutManager(context)
+        rv_covid_province.adapter =
+            ProvinceCovidAdapter(
                 context!!,
                 body
             ) {
@@ -81,7 +79,6 @@ class HomeFragment: Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        this.clearFindViewByIdCache()
     }
 
 }

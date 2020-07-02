@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private var mAuth: FirebaseAuth? = null
-    val menuIcon = arrayOf(R.drawable.ic_home, R.drawable.ic_user)
+    val menuIcon = arrayOf(R.drawable.ic_home, R.drawable.ic_user, R.drawable.ic_location)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
