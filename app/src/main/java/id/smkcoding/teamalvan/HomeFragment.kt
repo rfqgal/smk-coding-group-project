@@ -22,6 +22,12 @@ class HomeFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity!!.title = "Home"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity!!.title = "Home"
     }
 
     override fun onCreateView(

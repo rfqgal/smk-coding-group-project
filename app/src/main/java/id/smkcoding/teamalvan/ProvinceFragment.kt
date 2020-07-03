@@ -21,6 +21,12 @@ class ProvinceFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity!!.title = "COVID-19 Province"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity!!.title = "COVID-19 Province"
     }
 
     override fun onCreateView(
