@@ -25,5 +25,7 @@
         android:layout_margin="20dp"
         android:layout_gravity="bottom|end"
         android:src="@drawable/ic_write"
-        android:tint="#FFF" />
+        android:tint="#FFF"
+        android:clickable="true"
+        android:focusable="true" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
