@@ -1,24 +1,42 @@
 package id.smkcoding.teamalvan
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
 import id.smkcoding.teamalvan.api.ApiCovidIndonesiaItem
 import id.smkcoding.teamalvan.api.data.IndonesiaCovidAdapter
 import id.smkcoding.teamalvan.api.data.IndonesiaCovidService
 import id.smkcoding.teamalvan.api.data.apiRequest
+import id.smkcoding.teamalvan.notification.FirebaseServices
+import id.smkcoding.teamalvan.notification.NotificationData
+import id.smkcoding.teamalvan.notification.PushNotification
+import id.smkcoding.teamalvan.notification.RetrofitInstance
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
+
+const val TOPIC = "/topics/myTopic2"
 
 class HomeFragment: Fragment() {
+
+    val TAG = "HomeFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +59,25 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         callApiCovid()
+//        FirebaseServices.sharedPref = this.activity!!.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+//        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+//            FirebaseServices.token = it.token
+//            etToken.setText(it.token)
+//        }
+//        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+//        btn_sendNotif.setOnClickListener {
+//            val message = edt_sendNotif.text.toString()
+//            val title = "Konsultasi baru"
+//            val recipientToken = etToken.text.toString()
+//            if(message.isNotEmpty() && recipientToken.isNotEmpty()) {
+//                PushNotification(
+//                    NotificationData(title, message),
+//                    recipientToken
+//                ).also {
+//                    sendNotification(it)
+//                }
+//            }
+//        }
     }
 
     private fun callApiCovid() {
@@ -84,6 +121,19 @@ class HomeFragment: Fragment() {
                 val item = it
             }
     }
+
+//    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+//        try {
+//            val response = RetrofitInstance.api.postNotification(notification)
+//            if(response.isSuccessful) {
+////                Log.d(TAG, "Response: ${Gson().toJson(response)}")
+//            } else {
+////                Log.e(TAG, response.errorBody().toString())
+//            }
+//        } catch(e: Exception) {
+//            Log.e(TAG, e.toString())
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

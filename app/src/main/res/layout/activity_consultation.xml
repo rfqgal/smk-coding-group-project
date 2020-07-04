@@ -9,6 +9,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="Pertanyaan" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Token"
+        android:visibility="gone"
+        android:id="@+id/etToken"/>
+
     <Button
         android:id="@+id/simpan"
         android:layout_width="match_parent"
