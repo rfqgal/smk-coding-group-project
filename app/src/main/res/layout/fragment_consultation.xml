@@ -11,14 +11,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/consultation_list"
                 android:layout_marginVertical="10dp" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_write_article"
+            android:id="@+id/btn_write_consultation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
