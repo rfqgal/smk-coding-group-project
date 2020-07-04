@@ -47,7 +47,6 @@
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/btn_facebook_login"
-            style="@style/FacebookLoginButton"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_gravity="center"

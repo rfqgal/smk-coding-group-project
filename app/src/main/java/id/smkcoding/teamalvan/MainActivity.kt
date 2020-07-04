@@ -31,5 +31,8 @@ class MainActivity : AppCompatActivity() {
         }).attach()
     }
 
+    private fun setActionBar(title: String) {
+        supportActionBar!!.title = title
+    }
 
 }

@@ -22,6 +22,12 @@ class UserFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity!!.title = "Profile"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity!!.title = "Profile"
     }
 
     override fun onCreateView(

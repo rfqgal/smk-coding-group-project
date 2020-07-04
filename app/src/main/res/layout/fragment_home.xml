@@ -20,7 +20,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="28dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="10dp"
             android:text="Recent Articles"
             android:textColor="#000"
             android:textSize="20sp"
@@ -29,6 +30,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_recent_article"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
     </LinearLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
