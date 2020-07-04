@@ -55,15 +55,9 @@ class ConsultationActivity : AppCompatActivity(), View.OnClickListener{
         if (UserID != null){
             ref.child(UserID).child("tb_consultation").push().setValue(question).addOnCompleteListener{
                 Toast.makeText(this,"Pertanyaan Anda Terkirim", Toast.LENGTH_SHORT).show()
-                kembali()
+                finish()
             }
 
         }
     }
-
-    private fun kembali() {
-        val intent = Intent (this, ConsultationFragment::class.java)
-        startActivity(intent)
-    }
-
 }
