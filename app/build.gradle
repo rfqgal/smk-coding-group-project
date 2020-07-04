@@ -53,18 +53,21 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
     // Firebase Dependencies
-    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.1'
     implementation 'com.firebaseui:firebase-ui-database:6.2.0'
-    implementation 'com.google.firebase:firebase-core:16.0.5'
-    implementation 'com.google.firebase:firebase-database:16.0.4'
-    implementation 'androidx.room:room-runtime:2.2.2'
+    implementation 'com.google.firebase:firebase-core:17.4.3'
+    implementation 'com.google.firebase:firebase-database:19.3.1'
+    implementation 'androidx.room:room-runtime:2.2.5'
+    implementation 'com.google.firebase:firebase-messaging:20.2.1'
+    implementation 'com.google.firebase:firebase-firestore:21.4.3'
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
-    implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    annotationProcessor 'androidx.room:room-compiler:2.2.2'
+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -75,8 +78,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
     //facebook
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5]'
+    implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
-    implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
 
+    implementation 'androidx.multidex:multidex:2.0.1'
 }
