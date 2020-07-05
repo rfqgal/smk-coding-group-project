@@ -22,8 +22,6 @@ class ConsultationAdapter(val mCtx: Context, val layoutResId: Int, val consultat
         val tvtext : TextView = view.findViewById(R.id.tv_deskripsi_konsultasi)
         val consul = consultationlist[position]
 
-
-
         tvnama.text = consul.IDuser
         tvwaktu.text = consul.Time
         tvtext.text = consul.Text

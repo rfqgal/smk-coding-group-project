@@ -11,6 +11,7 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import id.smkcoding.teamalvan.api.ApiCovidProvinceItem
 import id.smkcoding.teamalvan.api.data.IndonesiaCovidService
@@ -28,6 +29,7 @@ class ConsultationFragment: Fragment() {
     private lateinit var ref : DatabaseReference
     private lateinit var listconsul : ListView
     private lateinit var consultationlist : MutableList<ConsultationModel>
+    private var mAuth : FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +54,9 @@ class ConsultationFragment: Fragment() {
         btn_write_consultation.setOnClickListener{
             konsultasi()
         }
-        ref = FirebaseDatabase.getInstance().getReference()
+        mAuth = FirebaseAuth.getInstance()
+        val user = mAuth!!.currentUser
+        ref = FirebaseDatabase.getInstance().getReference().child(user!!.uid).child("tb_consultation")
         listconsul = view.findViewById(R.id.consultation_list)
         consultationlist = mutableListOf()
         ref.addValueEventListener(object : ValueEventListener {
@@ -60,10 +64,10 @@ class ConsultationFragment: Fragment() {
                 Toast.makeText(getContext(), "Database Error yaa...", Toast.LENGTH_LONG).show()
             }
 
-            override fun onDataChange(p0: DataSnapshot) {
-                if (p0.exists()){
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
                     consultationlist.clear()
-                    for (h in p0.children){
+                    for (h in snapshot.children){
                         val muhasabah = h.getValue(ConsultationModel::class.java)
                         if (muhasabah != null){
                             consultationlist.add(muhasabah)
