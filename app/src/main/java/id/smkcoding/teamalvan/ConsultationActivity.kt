@@ -71,13 +71,13 @@ class ConsultationActivity : AppCompatActivity(), View.OnClickListener{
         val pertanyaanid = ref.push().key.toString()
         val jenis = "pertanyaan"
         val UserID: String = auth?.getCurrentUser()?.getUid().toString()
-        val question = ConsultationModel(UserID, tanggal, getPertanyaan, pertanyaanid,jenis)
+        val question = ConsultationModel(UserID, tanggal, getPertanyaan, pertanyaanid, jenis, recipientToken)
 
         if (UserID != null){
             if(getPertanyaan.isNotEmpty() && recipientToken.isNotEmpty()) {
                 PushNotification(
                     NotificationData(title, getPertanyaan),
-                    recipientToken
+                    TOPIC
                 ).also {
                     sendNotification(it)
                 }

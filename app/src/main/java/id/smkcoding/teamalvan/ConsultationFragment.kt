@@ -25,8 +25,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ConsultationFragment: Fragment() {
-    private lateinit var  ref : DatabaseReference
-    private lateinit var  listconsul : ListView
+    private lateinit var ref : DatabaseReference
+    private lateinit var listconsul : ListView
     private lateinit var consultationlist : MutableList<ConsultationModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +81,10 @@ class ConsultationFragment: Fragment() {
     private fun konsultasi() {
         val intent = Intent (context, ConsultationActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
 
