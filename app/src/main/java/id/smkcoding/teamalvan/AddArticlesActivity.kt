@@ -26,6 +26,7 @@ class AddArticlesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_articles)
+        title = "Write Article"
 
         Title = findViewById<EditText>(R.id.txt_title)
         Caption = findViewById<EditText>(R.id.txt_caption)

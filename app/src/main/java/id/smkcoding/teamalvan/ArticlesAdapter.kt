@@ -46,8 +46,8 @@ class ArticlesAdapter(private val context: Context, private val list: ArrayList<
         holder.tv_deskripsi_artikel_terbaru.setText("$Caption")
 
         Glide.with(context)
-                .load("$PhotoProfile")
-                .into(holder.img_dokter_artikel_terbaru);
+            .load("$PhotoProfile")
+            .into(holder.img_dokter_artikel_terbaru);
 
         //Deklarasi objek dari Interfece
 //        val listener: dataListener? = null

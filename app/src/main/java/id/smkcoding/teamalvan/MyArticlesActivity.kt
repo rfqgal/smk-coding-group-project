@@ -23,6 +23,7 @@ class MyArticlesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_articles)
+        title = "List Article"
 
         getData()
         btn_write_article.setOnClickListener {

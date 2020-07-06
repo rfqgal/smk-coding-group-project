@@ -31,6 +31,7 @@ class UpdateArticlesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_articles)
+        title = "Update Article"
 
         getSupportActionBar()?.setTitle("Update Data")
         ref = FirebaseDatabase.getInstance().getReference()

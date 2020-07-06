@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="Category"
-        android:inputType="phone" />
+        android:inputType="textPersonName" />
     <EditText
         android:id="@+id/cover"
         android:layout_width="match_parent"

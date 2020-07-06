@@ -23,6 +23,7 @@ class ReadMoreArticlesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_more_articles)
+        title = "Read More Article"
 
         ref = FirebaseDatabase.getInstance().getReference()
         titleMore = findViewById(R.id.tv_judul_artikel_more)
