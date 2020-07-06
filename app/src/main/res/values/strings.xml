@@ -7,4 +7,11 @@
     <string name="facebook_app_id">1940375569428429</string>
     <string name="fb_login_protocol_scheme">fb1940375569428429</string>
 
+    <string-array name="kategori_artikel">
+        <item>Category 1</item>
+        <item>Category 2</item>
+        <item>Category 3</item>
+        <item>Category 4</item>
+        <item>Category 5</item>
+    </string-array>
 </resources>

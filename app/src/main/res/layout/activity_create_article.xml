@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/sp_category"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="20dp" />
+
+        <EditText
+            android:id="@+id/et_judul_artikel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:hint="Judul Artikel"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/et_isi_artikel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:hint="Isi Artikel"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/btn_post_artikel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="Post"
+            style="@style/FirebaseUI.Button"
+            android:background="@drawable/btn_rounded" />
+    </LinearLayout>
+</ScrollView>

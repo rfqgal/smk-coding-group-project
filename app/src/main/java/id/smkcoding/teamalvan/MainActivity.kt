@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private var mAuth: FirebaseAuth? = null
-    val menuIcon = arrayOf(R.drawable.ic_home, R.drawable.ic_user, R.drawable.ic_location)
+    val menuIcon = arrayOf(R.drawable.ic_home, R.drawable.ic_user, R.drawable.ic_consultation ,R.drawable.ic_location)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +30,4 @@ class MainActivity : AppCompatActivity() {
             tab.icon = ResourcesCompat.getDrawable(resources, menuIcon[position], null)
         }).attach()
     }
-
-    private fun setActionBar(title: String) {
-        supportActionBar!!.title = title
-    }
-
 }
