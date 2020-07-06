@@ -64,13 +64,13 @@ class ConsultationFragment: Fragment() {
                 Toast.makeText(getContext(), "Database Error yaa...", Toast.LENGTH_LONG).show()
             }
 
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.exists()){
                     consultationlist.clear()
-                    for (h in snapshot.children){
-                        val muhasabah = h.getValue(ConsultationModel::class.java)
-                        if (muhasabah != null){
-                            consultationlist.add(muhasabah)
+                    for (h in p0.children){
+                        val consul = h.getValue(ConsultationModel::class.java)
+                        if (consul != null){
+                            consultationlist.add(consul)
                         }
                     }
                    val adapter = context?.let { ConsultationAdapter(it, R.layout.item_consultation, consultationlist) }

@@ -3,9 +3,9 @@ package id.smkcoding.teamalvan.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Konsultasi")
+@Entity(tableName = "tb_consultation")
 data class ConsultationModel(
-    @PrimaryKey val IDuser : String,
+    val IDuser : String,
     val Time : String,
     val Text : String,
     val Idpertanyaan : String,
@@ -13,5 +13,5 @@ data class ConsultationModel(
     val token : String
 
 ){
-    constructor(): this("","","","","", "")
+    constructor(): this("","","","","","")
 }
