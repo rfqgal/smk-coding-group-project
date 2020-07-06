@@ -84,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_regular"
+                android:id="@+id/tv_consultation_readmore"
                 android:text="Read more"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp" />
@@ -94,6 +95,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="1dp"
                 android:paddingStart="-2dp"
+                android:id="@+id/ic_consultation_readmore"
                 android:src="@drawable/ic_arrow_right"
                 android:tint="@color/colorPrimary" />
 
