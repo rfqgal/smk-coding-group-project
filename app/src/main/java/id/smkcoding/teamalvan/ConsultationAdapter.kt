@@ -56,13 +56,8 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
 
     private fun displayConsultation(item: ConsultationModel) {
         val bundle = Bundle()
-        bundle.putString("dataTitle", "Judul ditambahi activity consultation")
-        bundle.putString("dataCaption", item.text)
-        bundle.putString("dataTime", item.time)
-        bundle.putString("dataNameDokter", "Dokter A")
-        bundle.putString("dataPhotoDokter", "https://res.cloudinary.com/dk0z4ums3/image/upload/v1540433703/attached_image/memahami-lebih-jauh-fungsi-dan-tugas-dokter-umum-alodokter.jpg")
-
-        val intent = Intent(context, ReadMoreArticlesActivity::class.java)
+        bundle.putString("description", item.text)
+        val intent = Intent(context, ReadMoreConsultationActivity::class.java)
         intent.putExtras(bundle)
         context.startActivity(intent)
     }
