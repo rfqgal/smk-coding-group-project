@@ -47,18 +47,20 @@ class AddArticlesActivity : AppCompatActivity() {
         val current = SimpleDateFormat("yyyy-MM-dd")
         val getTime = current.format(Date())
         val getPrimaryKey = ref.push().key.toString()
+        val getNameDokter: String = auth?.getCurrentUser()?.displayName.toString()
+        val getPhotoDokter: String = auth?.getCurrentUser()?.photoUrl.toString()
 
         if (getTitle.isEmpty() && getCaption.isEmpty() && getCategory.isEmpty() && getCover.isEmpty()) {
             //Jika kosong, maka akan menampilkan pesan singkat berikut ini.
             Toast.makeText(this@AddArticlesActivity,"Data tidak boleh ada yang kosong", Toast.LENGTH_SHORT).show()
         } else {
-            val articles = ArticlesModel(getUserID, getTime, getTitle, getCaption, getCategory, getCover, getPrimaryKey)
+            val articles = ArticlesModel(getUserID, getNameDokter, getPhotoDokter, getTime, getTitle, getCaption, getCategory, getCover, getPrimaryKey)
             //struktur databasenya adalah: ID >> Teman >> Key >> Data
             ref.child(getUserID).child("tb_articles").push().setValue(articles).addOnCompleteListener {
                 Toast.makeText(this, "Data Berhasil Disimpan",
                     Toast.LENGTH_SHORT).show()
             }
-            val intent = Intent (this, MainActivity::class.java)
+            val intent = Intent (this, MyArticlesActivity::class.java)
             startActivity(intent)
             finish()
         }

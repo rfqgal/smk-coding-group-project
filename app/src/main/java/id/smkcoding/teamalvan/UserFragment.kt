@@ -12,7 +12,9 @@ import id.smkcoding.teamalvan.api.ApiCovidIndonesiaItem
 import id.smkcoding.teamalvan.api.data.IndonesiaCovidService
 import id.smkcoding.teamalvan.api.data.apiRequest
 import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.activity_my_articles.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_user.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +43,10 @@ class UserFragment: Fragment() {
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        btnGoToArticles.setOnClickListener {
+            val intent = Intent(context, MyArticlesActivity::class.java)
+            this.startActivity(intent)
+        }
     }
 
     private fun signOut() {

@@ -147,7 +147,8 @@
             android:paddingEnd="-6dp"
             android:src="@drawable/ic_arrow_right"
             android:tint="@color/colorText"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlSymmetry"
+            android:id="@+id/btnGoToArticles"/>
     </LinearLayout>
 
     <View
