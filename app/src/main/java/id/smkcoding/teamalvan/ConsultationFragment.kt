@@ -25,7 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ConsultationFragment: Fragment() {
+class ConsultationFragment: Fragment(), View.OnClickListener {
     private lateinit var ref : DatabaseReference
     private lateinit var listconsul : ListView
     private lateinit var consultationlist : MutableList<ConsultationModel>
@@ -47,6 +47,7 @@ class ConsultationFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_consultation, container, false)
+
     }
 
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
@@ -61,7 +62,7 @@ class ConsultationFragment: Fragment() {
         consultationlist = mutableListOf()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                Toast.makeText(getContext(), "Database Error yaa...", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Database Error yaa...", Toast.LENGTH_LONG).show()
             }
 
             override fun onDataChange(p0: DataSnapshot) {
@@ -70,7 +71,7 @@ class ConsultationFragment: Fragment() {
                     for (h in p0.children){
                         val consul = h.getValue(ConsultationModel::class.java)
                         if (consul != null){
-                            consultationlist.add(consul)
+                            consultationlist.add(consul!!)
                         }
                     }
                    val adapter = context?.let { ConsultationAdapter(it, R.layout.item_consultation, consultationlist) }
@@ -89,6 +90,10 @@ class ConsultationFragment: Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    override fun onClick(p0: View?) {
+        TODO("Not yet implemented")
     }
 
 
