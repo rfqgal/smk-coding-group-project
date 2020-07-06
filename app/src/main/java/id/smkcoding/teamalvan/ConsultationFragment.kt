@@ -27,7 +27,6 @@ import retrofit2.Response
 
 class ConsultationFragment: Fragment(), View.OnClickListener {
     private lateinit var ref : DatabaseReference
-    private lateinit var listconsul : ListView
     private lateinit var consultationlist : MutableList<ConsultationModel>
     private var mAuth : FirebaseAuth? = null
 
@@ -58,8 +57,6 @@ class ConsultationFragment: Fragment(), View.OnClickListener {
         mAuth = FirebaseAuth.getInstance()
         val user = mAuth!!.currentUser
         ref = FirebaseDatabase.getInstance().getReference().child(user!!.uid).child("tb_consultation")
-        listconsul = view.findViewById(R.id.consultation_list)
-        consultationlist = mutableListOf()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Toast.makeText(context, "Database Error yaa...", Toast.LENGTH_LONG).show()
@@ -67,15 +64,14 @@ class ConsultationFragment: Fragment(), View.OnClickListener {
 
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists()){
-                    consultationlist.clear()
-                    for (h in p0.children){
+                    consultationlist = ArrayList<ConsultationModel>()
+                    for (h in p0.children) {
                         val consul = h.getValue(ConsultationModel::class.java)
-                        if (consul != null){
-                            consultationlist.add(consul!!)
-                        }
+                        consultationlist.add(consul!!)
                     }
-                   val adapter = context?.let { ConsultationAdapter(it, R.layout.item_consultation, consultationlist) }
-                    listconsul.adapter = adapter
+                    consultation_list.layoutManager = LinearLayoutManager(context)
+                    consultation_list.adapter = ConsultationAdapter(context!!, consultationlist)
+
                 }
             }
 

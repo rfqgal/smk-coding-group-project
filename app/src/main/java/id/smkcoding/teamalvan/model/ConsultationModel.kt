@@ -5,11 +5,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tb_consultation")
 data class ConsultationModel(
-    val IDuser : String,
-    val Time : String,
-    val Text : String,
-    val Idpertanyaan : String,
-    val Jenis : String,
+    val idpertanyaan : String,
+    val iduser : String,
+    val jenis : String,
+    val text : String,
+    val time : String,
     val token : String
 
 ){

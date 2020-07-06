@@ -7,25 +7,46 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import id.smkcoding.teamalvan.model.ConsultationModel
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_consultation.*
 
-class ConsultationAdapter(val mCtx: Context, val layoutResId: Int, val consultationlist: List<ConsultationModel> )
-    : ArrayAdapter<ConsultationModel>(mCtx,layoutResId,consultationlist)  {
+class ConsultationAdapter(private val context: Context, var list: MutableList<ConsultationModel>):
+        RecyclerView.Adapter<ConsultationAdapter.ViewHolder>() {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val layoutInflater : LayoutInflater = LayoutInflater.from(mCtx)
-        val view : View = layoutInflater.inflate(layoutResId, null)
+    lateinit var listener: MutableList<ConsultationModel>
+    private var item = emptyList<ConsultationModel>()
+    lateinit var ref: DatabaseReference
+    lateinit var auth: FirebaseAuth
 
-        val tvnama : TextView = view.findViewById(R.id.tv_nama_konsultasi)
-        val tvwaktu : TextView = view.findViewById(R.id.tv_timestamp_konsultasi)
-        val tvtext : TextView = view.findViewById(R.id.tv_deskripsi_konsultasi)
-        val consul = consultationlist[position]
-
-        tvnama.text = consul.IDuser
-        tvwaktu.text = consul.Time
-        tvtext.text = consul.Text
-
-        return view
+    internal fun setData(item: List<ConsultationModel>) {
+        this.list = item as MutableList<ConsultationModel>
+        notifyDataSetChanged()
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(context, LayoutInflater.from(context).inflate(R.layout.item_consultation, parent, false))
+
+    override fun getItemCount(): Int {
+        return list.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindItem(list[position], list as ArrayList<ConsultationModel>)
+    }
+
+    inner class ViewHolder(val context: Context, override val containerView: View):
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
+        fun bindItem(
+            item: ConsultationModel,
+            list: ArrayList<ConsultationModel>
+        ) {
+            tv_deskripsi_konsultasi.text = item.text
+            tv_nama_konsultasi.text = item.iduser
+            tv_timestamp_konsultasi.text = item.time
+        }
+    }
+
 }
