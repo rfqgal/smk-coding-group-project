@@ -61,11 +61,20 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
             replies_consultation.error = "Mohon isi terlebih dahulu"
             return
         } else {
-            PushNotification(
-                NotificationData(titleNotif, getBalasan),
-                tokenUser.toString()
-            ).also {
-                sendNotification(it)
+            if (tokenUser == null && tokenUser == "") {
+                PushNotification(
+                    NotificationData(titleNotif, getBalasan),
+                    TOPIC
+                ).also {
+                    sendNotification(it)
+                }
+            } else {
+                PushNotification(
+                    NotificationData(titleNotif, getBalasan),
+                    tokenUser.toString()
+                ).also {
+                    sendNotification(it)
+                }
             }
         }
     }

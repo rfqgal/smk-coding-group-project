@@ -11,12 +11,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import id.smkcoding.teamalvan.model.ConsultationModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_consultation.*
 
 class ConsultationAdapter(private val context: Context, var list: MutableList<ConsultationModel>):
         RecyclerView.Adapter<ConsultationAdapter.ViewHolder>() {
+
+    private var mDatabase: FirebaseDatabase? = null
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mAuth: FirebaseAuth? = null
 
     lateinit var listener: MutableList<ConsultationModel>
     private var item = emptyList<ConsultationModel>()

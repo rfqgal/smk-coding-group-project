@@ -71,7 +71,7 @@ class ConsultationActivity : AppCompatActivity(), View.OnClickListener{
         val pertanyaanid = ref.push().key.toString()
         val jenis = "pertanyaan"
         val UserID: String = auth?.getCurrentUser()?.getUid().toString()
-        val question = ConsultationModel(UserID, tanggal, getPertanyaan, pertanyaanid, jenis, recipientToken)
+        val question = ConsultationModel(pertanyaanid, UserID, jenis, getPertanyaan, tanggal, recipientToken)
 
         if (UserID != null){
             if(getPertanyaan.isNotEmpty() && recipientToken.isNotEmpty()) {

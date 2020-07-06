@@ -8,6 +8,8 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import id.smkcoding.teamalvan.api.ApiCovidIndonesiaItem
 import id.smkcoding.teamalvan.api.data.IndonesiaCovidService
 import id.smkcoding.teamalvan.api.data.apiRequest
@@ -21,6 +23,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserFragment: Fragment() {
+
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mDatabase: FirebaseDatabase? = null
+    private var mAuth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +48,19 @@ class UserFragment: Fragment() {
 
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
         setHasOptionsMenu(true)
         btnGoToArticles.setOnClickListener {
             val intent = Intent(context, MyArticlesActivity::class.java)
             this.startActivity(intent)
         }
+    }
+
+    private fun initialize() {
+        mAuth = FirebaseAuth.getInstance()
+        val user = mAuth!!.currentUser
+        tv_profile_name.text = user?.displayName
+        tv_profile_username.text = user?.email
     }
 
     private fun signOut() {
