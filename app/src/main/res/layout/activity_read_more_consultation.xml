@@ -1,16 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ReadMoreConsultationActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Consultation"
-        android:gravity="center"
-        android:id="@+id/tv_text_consultation_more"/>
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:background="#ffffff"
+        android:layout_marginVertical="10dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_konsultasi"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_profile" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_nama_konsultasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Rifky Galuh"
+                        android:textColor="@color/colorText"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_timestamp_konsultasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:text="Just now"
+                        android:textSize="8sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/tv_judul_konsultasi"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginBottom="4dp"-->
+            <!--            android:fontFamily="@font/lato_regular"-->
+            <!--            android:text="Lorem ipsum dolor sit amet"-->
+            <!--            android:textColor="@color/colorText"-->
+            <!--            android:textSize="20sp"-->
+            <!--            android:textStyle="bold" />-->
+
+            <TextView
+                android:id="@+id/tv_deskripsi_konsultasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="Lorem ipsum dolor sit amet..."
+                android:textColor="@color/colorText"
+                android:textSize="16sp" />
+            <TextView
+            android:id="@+id/tv_token_konsultasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="Lorem ipsum dolor sit amet..."
+            android:textColor="@color/colorText"
+            android:textSize="16sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Balas konsultasi"
+            android:id="@+id/replies_consultation"
+            android:layout_margin="16dp"/>
+
+        <Button
+            android:id="@+id/balas"
+            style="@style/FirebaseUI.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/btn_rounded"
+            android:text="Balas"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+</LinearLayout>

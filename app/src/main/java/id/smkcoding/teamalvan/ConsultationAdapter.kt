@@ -57,6 +57,9 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
     private fun displayConsultation(item: ConsultationModel) {
         val bundle = Bundle()
         bundle.putString("description", item.text)
+        bundle.putString("user", item.iduser)
+        bundle.putString("time", item.time)
+        bundle.putString("token", item.token)
         val intent = Intent(context, ReadMoreConsultationActivity::class.java)
         intent.putExtras(bundle)
         context.startActivity(intent)
