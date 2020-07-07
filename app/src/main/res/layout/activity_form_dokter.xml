@@ -7,38 +7,41 @@
     android:orientation="vertical"
     tools:context=".FormDokterActivity">
 
-    <EditText
-        android:id="@+id/edt_form_nama_dokter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="18dp"
-        android:hint="Nama Lengkap"
-        android:inputType="textCapWords"
-        android:textSize="15sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_margin="17dp"
         android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edt_form_nama_dokter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="3dp"
+            android:layout_weight="1"
+            android:hint="Nama Lengkap"
+            android:inputType="textCapWords"
+            android:textSize="15sp" />
 
         <Spinner
             android:id="@+id/sp_form_gender_dokter"
             android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-
-        <Spinner
-            android:id="@+id/sp_form_jenis_dokter"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/sp_form_jenis_dokter"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="17dp"
+        android:layout_marginBottom="20dp" />
+
     <EditText
+        android:id="@+id/edt_id_dokter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
+        android:paddingHorizontal="3dp"
+        android:layout_marginHorizontal="17dp"
         android:layout_marginBottom="20dp"
         android:hint="No. Induk Profesi Dokter"
         android:inputType="number"
