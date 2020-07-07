@@ -1,5 +1,6 @@
 package id.smkcoding.teamalvan
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -56,7 +57,24 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
             tv_consultation_readmore.setOnClickListener {
                 displayConsultation(item)
             }
+            btn_more.setOnClickListener{
+                more(item)
+            }
         }
+    }
+
+    private fun more(item: ConsultationModel) {
+        val bundle = Bundle()
+        bundle.putString("pertanyaan", item.text)
+        bundle.putString("nama", item.iduser)
+        bundle.putString("tanggal", item.time)
+        bundle.putString("token", item.token)
+        bundle.putString("IDP", item.idpertanyaan)
+        bundle.putString("jenis", item.jenis)
+        bundle.putString("key", item.idpertanyaan)
+        val intent = Intent(context, UpdateConsultationActivity::class.java)
+        intent.putExtras(bundle)
+        context.startActivity(intent)
     }
 
     private fun displayConsultation(item: ConsultationModel) {
@@ -69,5 +87,7 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
         intent.putExtras(bundle)
         context.startActivity(intent)
     }
+
+
 
 }
