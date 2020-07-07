@@ -1,5 +1,6 @@
 package id.smkcoding.teamalvan
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +17,7 @@ import id.smkcoding.teamalvan.model.ConsultationModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_consultation.*
 
-class ConsultationAdapter(private val context: Context, var list: MutableList<ConsultationModel>):
+class ConsultationAdapter(private val context: Context, var list: MutableList<ConsultationModel>, var keylist: MutableList<String>):
         RecyclerView.Adapter<ConsultationAdapter.ViewHolder>() {
 
     private var mDatabase: FirebaseDatabase? = null
@@ -27,6 +28,8 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
     private var item = emptyList<ConsultationModel>()
     lateinit var ref: DatabaseReference
     lateinit var auth: FirebaseAuth
+
+    private var keyConsul: String = ""
 
     internal fun setData(item: List<ConsultationModel>) {
         this.list = item as MutableList<ConsultationModel>
@@ -46,17 +49,31 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
 
     inner class ViewHolder(val context: Context, override val containerView: View):
         RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bindItem(
-            item: ConsultationModel,
-            list: ArrayList<ConsultationModel>
-        ) {
+        fun bindItem( item: ConsultationModel, list: ArrayList<ConsultationModel>) {
             tv_deskripsi_konsultasi.text = item.text
             tv_nama_konsultasi.text = item.iduser
             tv_timestamp_konsultasi.text = item.time
             tv_consultation_readmore.setOnClickListener {
                 displayConsultation(item)
             }
+            btn_more.setOnClickListener{
+                more(item)
+            }
         }
+    }
+
+    private fun more(item: ConsultationModel) {
+        val bundle = Bundle()
+        bundle.putString("pertanyaan", item.text)
+        bundle.putString("nama", item.iduser)
+        bundle.putString("tanggal", item.time)
+        bundle.putString("token", item.token)
+        bundle.putString("IDP", item.idpertanyaan)
+        bundle.putString("jenis", item.jenis)
+        bundle.putString("key", item.idpertanyaan)
+        val intent = Intent(context, UpdateConsultationActivity::class.java)
+        intent.putExtras(bundle)
+        context.startActivity(intent)
     }
 
     private fun displayConsultation(item: ConsultationModel) {
@@ -65,9 +82,13 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
         bundle.putString("user", item.iduser)
         bundle.putString("time", item.time)
         bundle.putString("token", item.token)
+        bundle.putString("key", item.idpertanyaan)
+
         val intent = Intent(context, ReadMoreConsultationActivity::class.java)
         intent.putExtras(bundle)
         context.startActivity(intent)
     }
+
+
 
 }
