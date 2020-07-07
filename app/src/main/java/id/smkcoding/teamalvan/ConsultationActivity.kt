@@ -82,11 +82,20 @@ class ConsultationActivity : AppCompatActivity(), View.OnClickListener{
                     sendNotification(it)
                 }
             }
-            ref.child(UserID).child("tb_consultation").push().setValue(question).addOnCompleteListener{
-                Toast.makeText(this,"Pertanyaan Anda Terkirim", Toast.LENGTH_SHORT).show()
-                finish()
-            }
-
+//            ref.child(UserID).child("tb_consultation").push().setValue(question).addOnCompleteListener{
+//                Toast.makeText(this,"Pertanyaan Anda Terkirim", Toast.LENGTH_SHORT).show()
+//                finish()
+//            }
+            val qRef = ref.child(UserID).child("tb_consultation").push()
+            qRef.child("idpertanyaan").setValue(qRef.key.toString())
+            qRef.child("iduser").setValue(UserID)
+            qRef.child("jenis").setValue(jenis)
+            qRef.child("text").setValue(getPertanyaan)
+            qRef.child("time").setValue(tanggal)
+            qRef.child("token").setValue(recipientToken)
+            val intent = Intent(this@ConsultationActivity, ConsultationFragment::class.java)
+            Toast.makeText(this,"Pertanyaan Anda Terkirim", Toast.LENGTH_SHORT).show()
+            startActivity(intent)
         }
     }
 
@@ -102,4 +111,5 @@ class ConsultationActivity : AppCompatActivity(), View.OnClickListener{
             Log.e(TAG, e.toString())
         }
     }
+
 }

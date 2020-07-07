@@ -11,7 +11,6 @@ data class ConsultationModel(
     val text : String,
     val time : String,
     val token : String
-
 ){
     constructor(): this("","","","","","")
 }
