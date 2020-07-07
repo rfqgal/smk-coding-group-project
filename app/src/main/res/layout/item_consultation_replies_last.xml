@@ -75,34 +75,34 @@
             android:textColor="@color/colorText"
             android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lato_regular"
-                        android:id="@+id/tv_consultation_replies"
-                        android:text="Balas"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_regular"
+                android:id="@+id/tv_consultation_replies"
+                android:text="Balas"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"/>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:id="@+id/btn_more"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingEnd="-2dp"
-                        android:src="@drawable/ic_more"
-                        android:tint="#777"
-                        tools:ignore="RtlSymmetry" />
-                </LinearLayout>
+            <ImageView
+                android:id="@+id/btn_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="-2dp"
+                android:src="@drawable/ic_more"
+                android:tint="#777"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

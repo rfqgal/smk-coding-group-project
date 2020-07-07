@@ -70,7 +70,7 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
 
     private fun replies() {
         val getBalasan = edt_replies_consultation.text.toString().trim()
-        val titleNotif = "Balasan baru"
+        val titleNotif = "Balasan baru  "
         if(getBalasan.isEmpty()) {
             edt_replies_consultation.error = "Mohon isi terlebih dahulu"
             return
@@ -81,6 +81,7 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
                     TOPIC
                 ).also {
                     sendNotification(it)
+                    addReply()
                 }
             } else {
                 PushNotification(
@@ -114,7 +115,10 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
 
         val current = SimpleDateFormat("yyyy-MM-dd")
         val tanggal = current.format(Date())
-        mDatabaseReference = mDatabase!!.reference.child(user!!.uid).child("tb_consultation").child(key!!).child("tb_replies").push()
+        mDatabaseReference = mDatabase!!.reference.child(user!!.uid)
+            .child("tb_consultation")
+            .child(key!!)
+            .child("tb_replies").push()
         val qRef = mDatabaseReference
         qRef!!.child("idreply").setValue(qRef.key.toString())
         qRef.child("iduser").setValue(user.uid)
@@ -150,7 +154,7 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
                         consultationRepliesList.add(reply!!)
                     }
                     list_replies.layoutManager = LinearLayoutManager(this@ReadMoreConsultationActivity)
-                    list_replies.adapter = ConsultationRepliesAdapter(this@ReadMoreConsultationActivity, consultationRepliesList)
+                    list_replies.adapter = ConsultationRepliesAdapter(this@ReadMoreConsultationActivity, consultationRepliesList, key.toString())
                 }
             }
         })
