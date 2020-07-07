@@ -93,9 +93,10 @@ class ConsultationActivity : AppCompatActivity(), View.OnClickListener{
             qRef.child("text").setValue(getPertanyaan)
             qRef.child("time").setValue(tanggal)
             qRef.child("token").setValue(recipientToken)
-            val intent = Intent(this@ConsultationActivity, ConsultationFragment::class.java)
+            //val intent = Intent(this@ConsultationActivity, ConsultationFragment::class.java)
             Toast.makeText(this,"Pertanyaan Anda Terkirim", Toast.LENGTH_SHORT).show()
-            startActivity(intent)
+            //startActivity(intent)
+            finish()
         }
     }
 
