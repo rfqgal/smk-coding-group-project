@@ -64,13 +64,15 @@ class ConsultationFragment: Fragment(), View.OnClickListener {
 
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists()){
+                    var keylist = ArrayList<String>()
                     consultationlist = ArrayList<ConsultationModel>()
                     for (h in p0.children) {
                         val consul = h.getValue(ConsultationModel::class.java)
                         consultationlist.add(consul!!)
+                        keylist.add(h.key.toString())
                     }
                     consultation_list.layoutManager = LinearLayoutManager(context)
-                    consultation_list.adapter = ConsultationAdapter(context!!, consultationlist)
+                    consultation_list.adapter = ConsultationAdapter(context!!, consultationlist, keylist)
 
                 }
             }

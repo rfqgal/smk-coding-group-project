@@ -1,12 +1,17 @@
 package id.smkcoding.teamalvan
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
+import id.smkcoding.teamalvan.model.ConsultationRepliesModel
 import id.smkcoding.teamalvan.notification.FirebaseServices
 import id.smkcoding.teamalvan.notification.NotificationData
 import id.smkcoding.teamalvan.notification.PushNotification
@@ -16,6 +21,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ReadMoreConsultationActivity : AppCompatActivity() {
 
@@ -24,7 +32,13 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
     private var time: String? = ""
     private var description: String? = ""
     private var tokenUser: String? = ""
-    private lateinit var balasan: EditText
+    private var key: String? = ""
+
+    private lateinit var consultationRepliesList: MutableList<ConsultationRepliesModel>
+
+    private var mDatabase: FirebaseDatabase? = null
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mAuth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +51,11 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
         time = intent.getStringExtra("time")
         description = intent.getStringExtra("description")
         tokenUser = intent.getStringExtra("token")
-
-        balasan = findViewById<EditText>(R.id.replies_consultation)
+        key = intent.getStringExtra("key")
 
         tv_nama_konsultasi.text = nama
         tv_timestamp_konsultasi.text = time
         tv_deskripsi_konsultasi.text = description
-        tv_token_konsultasi.text = tokenUser
 
         FirebaseServices.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
@@ -52,13 +64,15 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
         balas.setOnClickListener { replies() }
 
+        displayReplies()
+
     }
 
     private fun replies() {
-        val getBalasan = balasan.text.toString().trim()
+        val getBalasan = edt_replies_consultation.text.toString().trim()
         val titleNotif = "Balasan baru"
         if(getBalasan.isEmpty()) {
-            replies_consultation.error = "Mohon isi terlebih dahulu"
+            edt_replies_consultation.error = "Mohon isi terlebih dahulu"
             return
         } else {
             if (tokenUser == null && tokenUser == "") {
@@ -74,6 +88,7 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
                     tokenUser.toString()
                 ).also {
                     sendNotification(it)
+                    addReply()
                 }
             }
         }
@@ -90,5 +105,54 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
         }
+    }
+
+    private fun addReply() {
+        mDatabase = FirebaseDatabase.getInstance()
+        mAuth = FirebaseAuth.getInstance()
+        val user = mAuth!!.currentUser
+
+        val current = SimpleDateFormat("yyyy-MM-dd")
+        val tanggal = current.format(Date())
+        mDatabaseReference = mDatabase!!.reference.child(user!!.uid).child("tb_consultation").child(key!!).child("tb_replies").push()
+        val qRef = mDatabaseReference
+        qRef!!.child("idreply").setValue(qRef.key.toString())
+        qRef.child("iduser").setValue(user.uid)
+        qRef.child("text").setValue(edt_replies_consultation.text.toString())
+        qRef.child("time").setValue(tanggal)
+        qRef.child("token").setValue(tokenUser)
+        val bundle = Bundle()
+        bundle.putString("description", tv_deskripsi_konsultasi.text.toString())
+        bundle.putString("user", tv_nama_konsultasi.text.toString())
+        bundle.putString("time", tv_timestamp_konsultasi.text.toString())
+        bundle.putString("token", tokenUser)
+        bundle.putString("key", key)
+        val intent = Intent(this, ReadMoreConsultationActivity::class.java)
+        intent.putExtras(bundle)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun displayReplies() {
+        mDatabase = FirebaseDatabase.getInstance()
+        mAuth = FirebaseAuth.getInstance()
+        val user = mAuth!!.currentUser
+        mDatabaseReference = mDatabase!!.reference.child(user!!.uid).child("tb_consultation").child(key!!).child("tb_replies")
+        mDatabaseReference!!.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+            override fun onDataChange(snapshot: DataSnapshot) {
+                consultationRepliesList = ArrayList<ConsultationRepliesModel>()
+                if(snapshot.exists()) {
+                    for(data in snapshot.children) {
+                        val reply = data.getValue(ConsultationRepliesModel::class.java)
+                        consultationRepliesList.add(reply!!)
+                    }
+                    list_replies.layoutManager = LinearLayoutManager(this@ReadMoreConsultationActivity)
+                    list_replies.adapter = ConsultationRepliesAdapter(this@ReadMoreConsultationActivity, consultationRepliesList)
+                }
+            }
+        })
     }
 }
