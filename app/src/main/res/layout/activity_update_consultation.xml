@@ -8,30 +8,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Pengirim :"
+        android:visibility="gone"
     />
     <TextView
         android:id="@+id/tanggal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tanggal :"
+        android:visibility="gone"
         />
     <TextView
         android:id="@+id/jenis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Jenis :"
+        android:visibility="gone"
         />
     <TextView
         android:id="@+id/idpertanyaan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ID Pertanyaan :"
+        android:visibility="gone"
         />
     <TextView
         android:id="@+id/token"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Token :"
+        android:visibility="gone"
         />
     <EditText
         android:id="@+id/pertanyaan"
