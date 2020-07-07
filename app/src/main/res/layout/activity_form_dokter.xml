@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FormDokterActivity">
+
+    <EditText
+        android:id="@+id/edt_form_nama_dokter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:hint="Nama Lengkap"
+        android:inputType="textCapWords"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/sp_form_gender_dokter"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
+
+        <Spinner
+            android:id="@+id/sp_form_jenis_dokter"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp" />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginBottom="20dp"
+        android:hint="No. Induk Profesi Dokter"
+        android:inputType="number"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Foto KTP/SIM/Paspor/Identitas Lain"
+            android:textColor="@color/colorText" />
+
+        <Button
+            android:id="@+id/btn_foto_identitas"
+            style="@style/FirebaseUI.Button"
+            android:layout_width="72dp"
+            android:layout_height="32dp"
+            android:background="@drawable/btn_rounded"
+            android:paddingVertical="0dp"
+            android:text="Pilih"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Foto Surat Tanda Registrasi (STR)"
+            android:textColor="@color/colorText" />
+
+        <Button
+            android:id="@+id/btn_foto_bukti_dokter"
+            style="@style/FirebaseUI.Button"
+            android:layout_width="72dp"
+            android:layout_height="32dp"
+            android:background="@drawable/btn_rounded"
+            android:paddingVertical="0dp"
+            android:text="Pilih"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_ajukan"
+        style="@style/FirebaseUI.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/btn_rounded"
+        android:text="Ajukan" />
+</LinearLayout>

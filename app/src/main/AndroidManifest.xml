@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReadMoreConsultationActivity"></activity>
+        <activity android:name=".FormDokterActivity"></activity>
+        <activity android:name=".ReadMoreConsultationActivity" />
         <activity android:name=".DetailConsultationActivity" />
 
         <service
