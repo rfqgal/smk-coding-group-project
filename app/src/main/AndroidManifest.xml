@@ -15,8 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UpdateConsultationReplyActivity"></activity>
-        <activity android:name=".ListPengajuanDokterActivity"></activity>
+        <activity android:name=".UpdateConsultationReplyLastActivity"></activity>
+        <activity android:name=".UpdateConsultationReplyActivity" />
+        <activity android:name=".ListPengajuanDokterActivity" />
         <activity android:name=".ReplyConsultationActivty" />
         <activity android:name=".FormDokterActivity" />
         <activity android:name=".ReadMoreConsultationActivity" />
