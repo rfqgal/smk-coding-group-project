@@ -32,8 +32,9 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var databaseReference: DatabaseReference
     lateinit var storageReference: StorageReference
     lateinit var auth: FirebaseAuth
-    private lateinit var photoIdentity: EditText
-    private lateinit var photoStr: EditText
+
+    private var photoIdentity: EditText = findViewById(R.id.edt_form_photo_identity)
+    private var photoStr: EditText = findViewById(R.id.edt_form_photo_str)
 
     var uploadIdentitySuccess: Boolean = false
     var uploadStrSuccess: Boolean = false
@@ -81,10 +82,11 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         val getDoctorID: String = edt_id_dokter?.text.toString()
         val getPhotoIdentity: String = photoIdentity.text.toString()
         val getPhotoStr: String = photoStr.text.toString()
-        val getUserID: String = auth?.currentUser?.uid.toString()
+        val getUserID: String = auth.currentUser?.uid.toString()
 
         if (validateForm(getName, getDoctorID, getPhotoIdentity, getPhotoStr)) {
             val doctor = DoctorModel(
+                getUserID,
                 getName,
                 getGender,
                 getDoctorCat,
@@ -92,8 +94,7 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
                 getPhotoIdentity,
                 getPhotoStr
             )
-            databaseReference.child(getUserID)
-                .child("tb_calon_dokter")
+            databaseReference.child("tb_calon_dokter")
                 .push()
                 .setValue(doctor)
                 .addOnCompleteListener {
