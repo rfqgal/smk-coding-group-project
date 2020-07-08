@@ -18,6 +18,20 @@
         android:visibility="gone"
         />
     <TextView
+        android:id="@+id/foto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jenis :"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/namau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tanggal :"
+        android:visibility="gone"
+        />
+    <TextView
         android:id="@+id/jenis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

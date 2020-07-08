@@ -10,7 +10,9 @@ data class ConsultationModel(
     val jenis : String,
     val text : String,
     val time : String,
-    val token : String
+    val token : String,
+    val foto : String,
+    val nama : String
 ){
-    constructor(): this("","","","","","")
+    constructor(): this("","","","","","","","")
 }

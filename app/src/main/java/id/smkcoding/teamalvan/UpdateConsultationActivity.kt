@@ -35,6 +35,8 @@ class UpdateConsultationActivity : AppCompatActivity() {
     private var token: TextView? = null
     private var tanggal: TextView? = null
     private var id_p: TextView? = null
+    private var foto: TextView? = null
+    private var namau: TextView? = null
     private var jenis: TextView? = null
     private var database: DatabaseReference? = null
     private var cekpertanyaan: String? = null
@@ -43,6 +45,8 @@ class UpdateConsultationActivity : AppCompatActivity() {
     private var cekidp: String? = null
     private var cekjenis: String? = null
     private var cektoken: String? = null
+    private var cekfoto: String? = null
+    private var ceknamauser: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +57,8 @@ class UpdateConsultationActivity : AppCompatActivity() {
         id_p = findViewById(R.id.idpertanyaan)
         jenis = findViewById(R.id.jenis)
         nama = findViewById(R.id.pengirim)
+        foto = findViewById(R.id.foto)
+        namau = findViewById(R.id.namau)
 
 
         auth = FirebaseAuth.getInstance();
@@ -66,12 +72,14 @@ class UpdateConsultationActivity : AppCompatActivity() {
             cektanggal = tanggal?.getText().toString()
             cekidp = id_p?.getText().toString()
             cekjenis = jenis?.getText().toString()
+            cekfoto = foto?.getText().toString()
+            ceknamauser = namau?.getText().toString()
 
             if (isEmpty(cekpertanyaan)) {
                 Toast.makeText(this, "Data tidak boleh ada yang kosong", Toast.LENGTH_SHORT).show();
             } else {
 
-                val dataupdate = ConsultationModel(cekidp!!,ceknama!!,cekjenis!!,cekpertanyaan!!,cektanggal!!,cektoken!!)
+                val dataupdate = ConsultationModel(cekidp!!,ceknama!!,cekjenis!!,cekpertanyaan!!,cektanggal!!,cektoken!!,cekfoto!!,ceknamauser!!)
                 val UserID: String = auth?.getCurrentUser()?.getUid().toString()
                 val getKey: String = getIntent().getStringExtra("key").toString()
                 database!!.child(UserID).child("tb_consultation")
@@ -114,6 +122,8 @@ class UpdateConsultationActivity : AppCompatActivity() {
         val getToken: String  = getIntent().getStringExtra("token").toString()
         val getIDP: String  = getIntent().getStringExtra("IDP").toString()
         val getJenis: String  = getIntent().getStringExtra("jenis").toString()
+        val getFoto: String  = getIntent().getStringExtra("foto").toString()
+        val getNamau: String  = getIntent().getStringExtra("namauser").toString()
 
         description?.setText(getPertanyaan);
         tanggal?.setText(getTanggal);
@@ -121,6 +131,8 @@ class UpdateConsultationActivity : AppCompatActivity() {
         token?.setText(getToken);
         id_p?.setText(getIDP);
         jenis?.setText(getJenis);
+        foto?.setText(getFoto);
+        namau?.setText(getNamau);
         Toast.makeText(this, getNama, Toast.LENGTH_SHORT).show()
 
     }

@@ -53,6 +53,7 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
             tv_deskripsi_konsultasi.text = item.text
             tv_nama_konsultasi.text = item.iduser
             tv_timestamp_konsultasi.text = item.time
+            tv_nama_konsultasi.text = item.nama
             tv_consultation_readmore.setOnClickListener {
                 displayConsultation(item)
             }
@@ -71,6 +72,8 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
         bundle.putString("IDP", item.idpertanyaan)
         bundle.putString("jenis", item.jenis)
         bundle.putString("key", item.idpertanyaan)
+        bundle.putString("foto", item.foto)
+        bundle.putString("namauser", item.nama)
         val intent = Intent(context, UpdateConsultationActivity::class.java)
         intent.putExtras(bundle)
         context.startActivity(intent)
@@ -83,6 +86,8 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
         bundle.putString("time", item.time)
         bundle.putString("token", item.token)
         bundle.putString("key", item.idpertanyaan)
+        bundle.putString("foto", item.foto)
+        bundle.putString("nama", item.nama)
 
         val intent = Intent(context, ReadMoreConsultationActivity::class.java)
         intent.putExtras(bundle)

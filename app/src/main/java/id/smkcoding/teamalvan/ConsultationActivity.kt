@@ -71,7 +71,9 @@ class ConsultationActivity : AppCompatActivity(), View.OnClickListener{
         val pertanyaanid = ref.push().key.toString()
         val jenis = "pertanyaan"
         val UserID: String = auth?.getCurrentUser()?.getUid().toString()
-        val question = ConsultationModel(pertanyaanid, UserID, jenis, getPertanyaan, tanggal, recipientToken)
+        val foto: String = auth?.getCurrentUser()?.photoUrl.toString()
+        val nama: String = auth?.getCurrentUser()?.displayName.toString()
+        val question = ConsultationModel(pertanyaanid, UserID, jenis, getPertanyaan, tanggal, recipientToken,foto,nama)
 
         if (UserID != null){
             if(getPertanyaan.isNotEmpty() && recipientToken.isNotEmpty()) {
@@ -93,6 +95,8 @@ class ConsultationActivity : AppCompatActivity(), View.OnClickListener{
             qRef.child("text").setValue(getPertanyaan)
             qRef.child("time").setValue(tanggal)
             qRef.child("token").setValue(recipientToken)
+            qRef.child("foto").setValue(foto)
+            qRef.child("nama").setValue(nama)
             //val intent = Intent(this@ConsultationActivity, ConsultationFragment::class.java)
             Toast.makeText(this,"Pertanyaan Anda Terkirim", Toast.LENGTH_SHORT).show()
             //startActivity(intent)
