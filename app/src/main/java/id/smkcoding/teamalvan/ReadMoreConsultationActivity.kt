@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import id.smkcoding.teamalvan.model.ConsultationRepliesModel
+import id.smkcoding.teamalvan.model.UsersModel
 import id.smkcoding.teamalvan.notification.FirebaseServices
 import id.smkcoding.teamalvan.notification.NotificationData
 import id.smkcoding.teamalvan.notification.PushNotification
@@ -36,6 +38,7 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
     private var key: String? = ""
 
     private lateinit var consultationRepliesList: MutableList<ConsultationRepliesModel>
+    private lateinit var userConsultation: MutableList<UsersModel>
 
     private var mDatabase: FirebaseDatabase? = null
     private var mDatabaseReference: DatabaseReference? = null
@@ -55,7 +58,27 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
         key = intent.getStringExtra("key")
         namauser = intent.getStringExtra("nama")
 
-        tv_nama_konsultasi.text = nama
+        val user = FirebaseDatabase.getInstance().reference
+        val qRef = user.child(nama.toString()).child("tb_users").limitToFirst(1)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    //
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    userConsultation = ArrayList<UsersModel>()
+                    if(snapshot.exists()) {
+                        for(data in snapshot.children) {
+                            val user = data.getValue(UsersModel::class.java)
+                            tv_nama_konsultasi.text = data.child("name").value.toString()
+                            Glide.with(this@ReadMoreConsultationActivity)
+                                .load(data.child("photo").value)
+                                .into(img_konsultasi)
+                            userConsultation.add(user!!)
+                        }
+                    }
+                }
+            })
         tv_timestamp_konsultasi.text = time
         tv_deskripsi_konsultasi.text = description
         tv_nama_konsultasi.text = namauser
