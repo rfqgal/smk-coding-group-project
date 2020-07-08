@@ -8,7 +8,7 @@ data class DoctorModel(
     var name: String,
     var gender: String,
     var category: String,
-    @PrimaryKey var doctorID: String,
+    @PrimaryKey var iduser: String,
     var identity: String,
     var str: String
 ){

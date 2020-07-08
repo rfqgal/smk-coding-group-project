@@ -15,7 +15,8 @@ import id.smkcoding.teamalvan.model.UsersModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_consultation_replies_last.*
 
-class ConsultationRepliesLastAdapter(private val context: Context, var list: MutableList<ConsultationRepliesModel>):
+class ConsultationRepliesLastAdapter(private val context: Context, var list: MutableList<ConsultationRepliesModel>,
+val keyParent: String, val keyReply: String):
     RecyclerView.Adapter<ConsultationRepliesLastAdapter.ViewHolder>() {
 
     private var mDatabase: FirebaseDatabase? = null
@@ -65,6 +66,19 @@ class ConsultationRepliesLastAdapter(private val context: Context, var list: Mut
                 })
             tv_deskripsi_konsultasi_replied.text = item.text
             tv_timestamp_konsultasi_replied.text = item.time
+            btn_more.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("idconsul", keyParent)
+                bundle.putString("idreply", keyReply)
+                bundle.putString("id", item.idbalasan)
+                bundle.putString("time", item.time)
+                bundle.putString("user", item.iduser)
+                bundle.putString("description", item.text)
+                bundle.putString("token", item.token)
+                val intent = Intent(context, UpdateConsultationReplyLastActivity::class.java)
+                intent.putExtras(bundle)
+                context.startActivity(intent)
+            }
         }
     }
 
