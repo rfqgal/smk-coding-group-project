@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_regular"
                 android:id="@+id/tv_consultation_readmore"
-                android:text="Read more"
+                android:text="Balas"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp" />
 
