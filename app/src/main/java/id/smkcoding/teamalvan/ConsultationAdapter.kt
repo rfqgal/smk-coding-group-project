@@ -3,12 +3,14 @@ package id.smkcoding.teamalvan
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -27,7 +29,7 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
     private var mDatabase: FirebaseDatabase? = null
     private var mDatabaseReference: DatabaseReference? = null
     private var mAuth: FirebaseAuth? = null
-
+    private var database: DatabaseReference? = null
     lateinit var listener: MutableList<ConsultationModel>
     private var item = emptyList<ConsultationModel>()
     lateinit var ref: DatabaseReference
@@ -50,6 +52,7 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(list[position], list as ArrayList<ConsultationModel>)
+
     }
 
     inner class ViewHolder(val context: Context, override val containerView: View):
@@ -81,11 +84,44 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
             tv_consultation_readmore.setOnClickListener {
                 displayConsultation(item)
             }
-            btn_more.setOnClickListener{
-                more(item)
-            }
+            btn_more.setOnClickListener(View.OnClickListener { view ->
+                val action = arrayOf("Update", "Delete")
+                val alert = AlertDialog.Builder(view.context)
+                alert.setItems(action) { dialog, i ->
+                    when (i) {
+                        0 -> {
+
+                            more(item)
+                        }
+                        1 -> {
+                            hapusdata(item)
+                        }
+                    }
+                }
+                alert.create()
+                alert.show()
+                true
+            })
         }
     }
+    private fun hapusdata(item: ConsultationModel) {
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().getReference()
+        val getKey: String = item.idpertanyaan
+        val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
+        if (database != null) {
+            database!!.child(getUserID)
+                .child("tb_consultation")
+                .child(getKey)
+                .removeValue()
+                .addOnSuccessListener {
+                    Toast.makeText(context, "Data Berhasil Dihapus", Toast.LENGTH_SHORT).show()
+
+                }
+        }
+
+    }
+
 
     private fun more(item: ConsultationModel) {
         val bundle = Bundle()

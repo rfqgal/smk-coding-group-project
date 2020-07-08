@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        auth = FirebaseAuth.getInstance()
+
         callbackManager = CallbackManager.Factory.create()
         progress.visibility = View.GONE
 

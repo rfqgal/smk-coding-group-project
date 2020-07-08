@@ -33,11 +33,11 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var storageReference: StorageReference
     lateinit var auth: FirebaseAuth
 
-    private var photoIdentity: EditText = findViewById(R.id.edt_form_photo_identity)
-    private var photoStr: EditText = findViewById(R.id.edt_form_photo_str)
+    private var photoIdentity: EditText? = null
+    private var photoStr: EditText? = null
 
-    var uploadIdentitySuccess: Boolean = false
-    var uploadStrSuccess: Boolean = false
+    private var uploadIdentitySuccess: Boolean = false
+    private var uploadStrSuccess: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +50,9 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
 
         setSpinner(R.array.gender, sp_form_gender_dokter)
         setSpinner(R.array.jenis_dokter, sp_form_jenis_dokter)
+
+        photoIdentity = findViewById(R.id.edt_form_photo_identity)
+        photoStr = findViewById(R.id.edt_form_photo_str)
 
         btn_foto_identitas.setOnClickListener(this)
         btn_foto_bukti_dokter.setOnClickListener(this)
@@ -80,13 +83,12 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         val getGender: String = sp_form_gender_dokter.selectedItem.toString()
         val getDoctorCat: String = sp_form_jenis_dokter.selectedItem.toString()
         val getDoctorID: String = edt_id_dokter?.text.toString()
-        val getPhotoIdentity: String = photoIdentity.text.toString()
-        val getPhotoStr: String = photoStr.text.toString()
+        val getPhotoIdentity: String = photoIdentity?.text.toString()
+        val getPhotoStr: String = photoStr?.text.toString()
         val getUserID: String = auth.currentUser?.uid.toString()
 
         if (validateForm(getName, getDoctorID, getPhotoIdentity, getPhotoStr)) {
             val doctor = DoctorModel(
-                getUserID,
                 getName,
                 getGender,
                 getDoctorCat,
@@ -94,7 +96,8 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
                 getPhotoIdentity,
                 getPhotoStr
             )
-            databaseReference.child("tb_calon_dokter")
+            databaseReference.child(getUserID)
+                .child("tb_calon_dokter")
                 .push()
                 .setValue(doctor)
                 .addOnCompleteListener {
@@ -173,7 +176,7 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         val namaFile = UUID.randomUUID().toString() + ".jpg"
         val pathImage = storageReference.child("gambar/ $namaFile")
         val pathInsert = pathImage.downloadUrl.toString()
-        photoIdentity.setText(pathInsert);
+        photoIdentity?.setText(pathInsert);
 
         val uploadTask = storageReference.child(pathImage.toString()).putBytes(bytes)
         uploadTask
@@ -200,7 +203,7 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         val namaFile = UUID.randomUUID().toString() + ".jpg"
         val pathImage = storageReference.child("gambar/ $namaFile")
         val pathInsert = pathImage.downloadUrl.toString()
-        photoStr.setText(pathInsert);
+        photoStr?.setText(pathInsert);
 
         val uploadTask = storageReference.child(pathImage.toString()).putBytes(bytes)
         uploadTask
@@ -214,7 +217,8 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun uploadImagesStatus() {
-        uploadIdentity().also { uploadStr() }
+        uploadIdentity()
+        uploadStr()
         if (uploadIdentitySuccess && uploadStrSuccess) pengajuanForm()
     }
 
