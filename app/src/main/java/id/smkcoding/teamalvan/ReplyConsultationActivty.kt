@@ -27,7 +27,7 @@ class ReplyConsultationActivty : AppCompatActivity() {
 
     private var idReply: String? = ""
     private var idUser: String? = ""
-    private var descritpion: String? = ""
+    private var text: String? = ""
     private var dateTime: String? = ""
     private var tokenUser: String? = ""
     private var keyParent: String? = ""
@@ -35,6 +35,8 @@ class ReplyConsultationActivty : AppCompatActivity() {
     private var mDatabase: FirebaseDatabase? = null
     private var mDatabaseReference: DatabaseReference? = null
     private var mAuth: FirebaseAuth? = null
+
+    private var userKey: String? = ""
 
     private lateinit var consultationRepliesList: MutableList<ConsultationRepliesModel>
 
@@ -47,10 +49,12 @@ class ReplyConsultationActivty : AppCompatActivity() {
     private fun initialize() {
         idReply = intent.getStringExtra("key")
         idUser = intent.getStringExtra("user")
-        descritpion = intent.getStringExtra("description")
+        text = intent.getStringExtra("description")
         dateTime = intent.getStringExtra("time")
         tokenUser = intent.getStringExtra("token")
         keyParent = intent.getStringExtra("key_parent")
+
+        userKey = intent.getStringExtra("user")
 
         val user = FirebaseDatabase.getInstance().reference
         val qRef = user.child(idUser.toString()).child("tb_users").limitToFirst(1)
@@ -70,7 +74,7 @@ class ReplyConsultationActivty : AppCompatActivity() {
                 }
             })
 
-        tv_deskripsi_konsultasi_reply.text = descritpion
+        tv_deskripsi_konsultasi_reply.text = text
         tv_timestamp_konsultasi_reply.text = dateTime
 
         FirebaseServices.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
@@ -135,7 +139,7 @@ class ReplyConsultationActivty : AppCompatActivity() {
         val balasan = edt_replies_consultation_reply.text.toString().trim()
         val bundle = Bundle()
         bundle.putString("description", tv_deskripsi_konsultasi_reply.text.toString())
-        bundle.putString("user", tv_nama_konsultasi_reply.text.toString())
+        bundle.putString("user", userKey)
         bundle.putString("time", tv_timestamp_konsultasi_reply.text.toString())
         bundle.putString("token", tokenUser)
         bundle.putString("key", idReply)
@@ -180,7 +184,7 @@ class ReplyConsultationActivty : AppCompatActivity() {
                         consultationRepliesList.add(reply!!)
                     }
                     list_replies_reply.layoutManager = LinearLayoutManager(this@ReplyConsultationActivty)
-                    list_replies_reply.adapter = ConsultationRepliesLastAdapter(this@ReplyConsultationActivty, consultationRepliesList)
+                    list_replies_reply.adapter = ConsultationRepliesLastAdapter(this@ReplyConsultationActivty, consultationRepliesList, keyParent.toString(), idReply.toString())
                 }
             }
 

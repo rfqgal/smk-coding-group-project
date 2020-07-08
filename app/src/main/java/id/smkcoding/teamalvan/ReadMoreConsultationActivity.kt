@@ -35,6 +35,7 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
     private var description: String? = ""
     private var tokenUser: String? = ""
     private var key: String? = ""
+    private var userKey: String? = ""
 
     private lateinit var consultationRepliesList: MutableList<ConsultationRepliesModel>
     private lateinit var userConsultation: MutableList<UsersModel>
@@ -55,6 +56,8 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
         description = intent.getStringExtra("description")
         tokenUser = intent.getStringExtra("token")
         key = intent.getStringExtra("key")
+
+        userKey = intent.getStringExtra("user")
 
         val user = FirebaseDatabase.getInstance().reference
         val qRef = user.child(nama.toString()).child("tb_users").limitToFirst(1)
@@ -150,10 +153,11 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
         qRef.child("token").setValue(tokenUser)
         val bundle = Bundle()
         bundle.putString("description", tv_deskripsi_konsultasi.text.toString())
-        bundle.putString("user", tv_nama_konsultasi.text.toString())
+        bundle.putString("user", userKey)
         bundle.putString("time", tv_timestamp_konsultasi.text.toString())
         bundle.putString("token", tokenUser)
         bundle.putString("key", key)
+
         val intent = Intent(this, ReadMoreConsultationActivity::class.java)
         intent.putExtras(bundle)
         startActivity(intent)
