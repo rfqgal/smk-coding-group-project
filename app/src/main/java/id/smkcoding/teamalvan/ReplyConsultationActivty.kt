@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.iid.FirebaseInstanceId
@@ -51,8 +52,25 @@ class ReplyConsultationActivty : AppCompatActivity() {
         tokenUser = intent.getStringExtra("token")
         keyParent = intent.getStringExtra("key_parent")
 
+        val user = FirebaseDatabase.getInstance().reference
+        val qRef = user.child(idUser.toString()).child("tb_users").limitToFirst(1)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    //
+                }
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()) {
+                        for(data in snapshot.children) {
+                            tv_nama_konsultasi_reply.text = data.child("name").value.toString()
+                            Glide.with(this@ReplyConsultationActivty)
+                                .load(data.child("photo").value)
+                                .into(img_konsultasi_reply)
+                        }
+                    }
+                }
+            })
+
         tv_deskripsi_konsultasi_reply.text = descritpion
-        tv_nama_konsultasi_reply.text = idUser
         tv_timestamp_konsultasi_reply.text = dateTime
 
         FirebaseServices.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)

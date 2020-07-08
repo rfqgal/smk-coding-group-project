@@ -91,9 +91,9 @@ class UpdateConsultationActivity : AppCompatActivity() {
             }
         }
 
-        hapus.setOnClickListener{
-            hapusdata()
-        }
+//        hapus.setOnClickListener{
+//            hapusdata()
+//        }
     }
 
     private fun hapusdata() {
