@@ -12,4 +12,17 @@
         <item>Health</item>
         <item>Lifestyle</item>
     </string-array>
+
+    <string-array name="gender">
+        <item>Pria</item>
+        <item>Wanita</item>
+    </string-array>
+
+    <string-array name="jenis_dokter">
+        <item>Dokter Umum</item>
+        <item>Dokter Kulit</item>
+        <item>Dokter Kandungan</item>
+        <item>Dokter THT</item>
+        <item>Dokter Bedah</item>
+    </string-array>
 </resources>

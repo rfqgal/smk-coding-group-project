@@ -56,6 +56,10 @@ class UserFragment: Fragment() {
             val intent = Intent(context, MyArticlesActivity::class.java)
             this.startActivity(intent)
         }
+        btn_to_form_dokter.setOnClickListener {
+            val intent = Intent(context, FormDokterActivity::class.java)
+            this.startActivity(intent)
+        }
     }
 
     private fun initialize() {

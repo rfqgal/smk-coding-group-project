@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ReadMoreConsultationActivity">
+    tools:context=".ReplyConsultationActivty">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_konsultasi"
+                    android:id="@+id/img_konsultasi_reply"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_profile" />
@@ -39,7 +39,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_nama_konsultasi"
+                        android:id="@+id/tv_nama_konsultasi_reply"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -48,7 +48,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_timestamp_konsultasi"
+                        android:id="@+id/tv_timestamp_konsultasi_reply"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -70,7 +70,7 @@
             <!--            android:textStyle="bold" />-->
 
             <TextView
-                android:id="@+id/tv_deskripsi_konsultasi"
+                android:id="@+id/tv_deskripsi_konsultasi_reply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
@@ -91,11 +91,11 @@
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:hint="Balas konsultasi"
-            android:id="@+id/edt_replies_consultation"
+            android:id="@+id/edt_replies_consultation_reply"
             android:layout_marginLeft="4dp"/>
 
         <Button
-            android:id="@+id/balas"
+            android:id="@+id/balas_reply"
             style="@style/FirebaseUI.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,6 +110,6 @@
         android:layout_width="match_parent"
         android:layout_margin="8dp"
         android:layout_height="wrap_content"
-        android:id="@+id/list_replies"/>
+        android:id="@+id/list_replies_reply"/>
 
 </LinearLayout>
