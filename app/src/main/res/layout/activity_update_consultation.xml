@@ -77,15 +77,6 @@
         android:background="@drawable/btn_rounded"
         android:text="Edit"
         android:visibility="visible" />
-    <Button
-        android:id="@+id/hapus"
-        style="@style/FirebaseUI.Button"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/btn_rounded"
-        android:text="Hapus"
-        android:visibility="visible" />
+
 
 </LinearLayout>
