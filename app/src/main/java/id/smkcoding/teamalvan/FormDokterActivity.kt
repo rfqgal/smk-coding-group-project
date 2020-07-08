@@ -229,7 +229,7 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun uploadForm() {
         uploadIdentity()
-//        uploadStr()
+        uploadStr()
         pengajuanForm()
     }
 
