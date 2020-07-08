@@ -45,7 +45,7 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         title = "Form Pengajuan Akun Dokter"
 
         auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference
+        databaseReference = FirebaseDatabase.getInstance().getReference()
         storageReference = FirebaseStorage.getInstance().reference
 
         setSpinner(R.array.gender, sp_form_gender_dokter)
