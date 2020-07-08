@@ -14,33 +14,65 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="Title"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"/>
     <EditText
         android:id="@+id/txt_caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="Caption"
-        android:inputType="textEmailAddress" />
-    <EditText
+        android:inputType="textEmailAddress"/>
+    <Spinner
         android:id="@+id/category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Category"
-        android:inputType="textPersonName" />
+        android:layout_margin="16dp"
+        android:entries="@array/kategori_artikel"/>
     <EditText
         android:id="@+id/cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="Cover"
-        android:inputType="textPersonName" />
+        android:enabled="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:inputType="textPersonName"/>
+
+    <ImageView
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/select_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Select Cover"
+        android:visibility="visible"
+        style="@style/FirebaseUI.Button"
+        android:background="@drawable/btn_rounded"/>
+
     <Button
         android:id="@+id/simpan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Simpan"
-        android:visibility="visible" />
+        android:text="Post"
+        android:visibility="visible"
+        style="@style/FirebaseUI.Button"
+        android:background="@drawable/btn_rounded"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:max="100"
+        android:progress="0"
+        android:visibility="gone" />
 </LinearLayout>
