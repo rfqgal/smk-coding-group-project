@@ -62,7 +62,23 @@ class ConsultationRepliesAdapter(private val context: Context, var list: Mutable
             tv_consultation_replies.setOnClickListener { 
                 repliesConsultation(item)
             }
+            btn_more.setOnClickListener {
+                updateActivity(item)
+            }
         }
+    }
+
+    private fun updateActivity(item: ConsultationRepliesModel) {
+        val bundle = Bundle()
+        bundle.putString("description", item.text)
+        bundle.putString("user", item.iduser)
+        bundle.putString("time", item.time)
+        bundle.putString("token", item.token)
+        bundle.putString("key", item.idreply)
+        bundle.putString("key_parent", key)
+        val intent = Intent(context, UpdateConsultationReplyActivity::class.java)
+        intent.putExtras(bundle)
+        context.startActivity(intent)
     }
 
     private fun repliesConsultation(item: ConsultationRepliesModel) {

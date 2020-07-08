@@ -31,7 +31,6 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
 
     private val TAG: String? = "ReadMoreConsultation"
     private var nama: String? = ""
-    private var namauser: String? = ""
     private var time: String? = ""
     private var description: String? = ""
     private var tokenUser: String? = ""
@@ -56,7 +55,6 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
         description = intent.getStringExtra("description")
         tokenUser = intent.getStringExtra("token")
         key = intent.getStringExtra("key")
-        namauser = intent.getStringExtra("nama")
 
         val user = FirebaseDatabase.getInstance().reference
         val qRef = user.child(nama.toString()).child("tb_users").limitToFirst(1)
@@ -81,7 +79,6 @@ class ReadMoreConsultationActivity : AppCompatActivity() {
             })
         tv_timestamp_konsultasi.text = time
         tv_deskripsi_konsultasi.text = description
-        tv_nama_konsultasi.text = namauser
 
         FirebaseServices.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/pengirim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pengirim :"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/tanggal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tanggal :"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/foto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jenis :"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/namau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tanggal :"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/jenis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jenis :"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/idpertanyaan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID Pertanyaan :"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/token"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Token :"
+        android:visibility="gone"
+        />
+    <EditText
+        android:id="@+id/pertanyaan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="Ada yang ingin Anda tanyakan?"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:visibility="gone"
+        android:hint="Token"
+        android:id="@+id/etToken"/>
+
+    <Button
+        android:id="@+id/simpan"
+        style="@style/FirebaseUI.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/btn_rounded"
+        android:text="Edit"
+        android:visibility="visible" />
+    <Button
+        android:id="@+id/hapus"
+        style="@style/FirebaseUI.Button"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/btn_rounded"
+        android:text="Hapus"
+        android:visibility="visible" />
+
+</LinearLayout>
