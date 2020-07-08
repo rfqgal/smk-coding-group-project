@@ -73,7 +73,6 @@ class ConsultationFragment: Fragment(), View.OnClickListener {
                     }
                     consultation_list.layoutManager = LinearLayoutManager(context)
                     consultation_list.adapter = ConsultationAdapter(context!!, consultationlist, keylist)
-
                 }
             }
 

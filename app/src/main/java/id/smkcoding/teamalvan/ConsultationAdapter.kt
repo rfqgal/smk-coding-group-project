@@ -12,9 +12,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import id.smkcoding.teamalvan.model.ConsultationModel
+import id.smkcoding.teamalvan.model.ConsultationRepliesModel
+import id.smkcoding.teamalvan.model.UsersModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_consultation.*
 import kotlinx.android.synthetic.main.item_consultation.btn_more
@@ -33,6 +34,7 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
     lateinit var auth: FirebaseAuth
 
     private var keyConsul: String = ""
+    private lateinit var dataUserConsultation: MutableList<UsersModel>
 
     internal fun setData(item: List<ConsultationModel>) {
         this.list = item as MutableList<ConsultationModel>
@@ -53,13 +55,29 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
     inner class ViewHolder(val context: Context, override val containerView: View):
         RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bindItem( item: ConsultationModel, list: ArrayList<ConsultationModel>) {
+            val user = FirebaseDatabase.getInstance()
+            val ref = user.reference.child(item.iduser).child("tb_users").limitToFirst(1)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(error: DatabaseError) {
+                        //
+                    }
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        dataUserConsultation = ArrayList<UsersModel>()
+                        if(snapshot.exists()) {
+                            for(data in snapshot.children) {
+                                val user = data.getValue(UsersModel::class.java)
+                                dataUserConsultation.add(user!!)
+                                tv_nama_konsultasi.text = data.child("name").value.toString()
+                                Glide.with(context)
+                                    .load(data.child("photo").value)
+                                    .into(img_konsultasi);
+                            }
+                        }
+                    }
+                })
             tv_deskripsi_konsultasi.text = item.text
-            tv_nama_konsultasi.text = item.iduser
             tv_timestamp_konsultasi.text = item.time
             tv_nama_konsultasi.text = item.nama
-            Glide.with(context)
-                .load(item.foto)
-                .into(img_konsultasi);
             tv_consultation_readmore.setOnClickListener {
                 displayConsultation(item)
             }
