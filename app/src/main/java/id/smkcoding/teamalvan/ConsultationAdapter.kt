@@ -10,12 +10,15 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import id.smkcoding.teamalvan.model.ConsultationModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_consultation.*
+import kotlinx.android.synthetic.main.item_consultation.btn_more
+import kotlinx.android.synthetic.main.item_my_article.*
 
 class ConsultationAdapter(private val context: Context, var list: MutableList<ConsultationModel>, var keylist: MutableList<String>):
         RecyclerView.Adapter<ConsultationAdapter.ViewHolder>() {
@@ -54,6 +57,9 @@ class ConsultationAdapter(private val context: Context, var list: MutableList<Co
             tv_nama_konsultasi.text = item.iduser
             tv_timestamp_konsultasi.text = item.time
             tv_nama_konsultasi.text = item.nama
+            Glide.with(context)
+                .load(item.foto)
+                .into(img_konsultasi);
             tv_consultation_readmore.setOnClickListener {
                 displayConsultation(item)
             }
