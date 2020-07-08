@@ -29,9 +29,9 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
     private val IDENTITY_PICK_CODE: Int = 101
     private val STR_PICK_CODE: Int = 102
 
+    lateinit var auth: FirebaseAuth
     lateinit var databaseReference: DatabaseReference
     lateinit var storageReference: StorageReference
-    lateinit var auth: FirebaseAuth
 
     private var photoIdentity: EditText? = null
     private var photoStr: EditText? = null
@@ -44,9 +44,9 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_form_dokter)
         title = "Form Pengajuan Akun Dokter"
 
+        auth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().reference
         storageReference = FirebaseStorage.getInstance().reference
-        auth = FirebaseAuth.getInstance()
 
         setSpinner(R.array.gender, sp_form_gender_dokter)
         setSpinner(R.array.jenis_dokter, sp_form_jenis_dokter)
@@ -219,7 +219,7 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
     private fun uploadImagesStatus() {
         uploadIdentity()
         uploadStr()
-        if (uploadIdentitySuccess && uploadStrSuccess) pengajuanForm()
+        pengajuanForm()
     }
 
     private fun validateForm(name: String, id: String, photoIdentity: String, photoStr: String): Boolean {
