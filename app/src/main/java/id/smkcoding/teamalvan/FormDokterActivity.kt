@@ -33,6 +33,9 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var databaseReference: DatabaseReference
     lateinit var storageReference: StorageReference
 
+    private var imgIdentity: ImageView? = null
+    private var imgStr: ImageView? = null
+
     private var photoIdentity: EditText? = null
     private var photoStr: EditText? = null
 
@@ -45,11 +48,14 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         title = "Form Pengajuan Akun Dokter"
 
         auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().getReference()
+        databaseReference = FirebaseDatabase.getInstance().reference
         storageReference = FirebaseStorage.getInstance().reference
 
         setSpinner(R.array.gender, sp_form_gender_dokter)
         setSpinner(R.array.jenis_dokter, sp_form_jenis_dokter)
+
+        imgIdentity = findViewById(R.id.img_identity)
+        imgStr = findViewById(R.id.img_str)
 
         photoIdentity = findViewById(R.id.edt_form_photo_identity)
         photoStr = findViewById(R.id.edt_form_photo_str)
@@ -74,7 +80,7 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
             R.id.btn_foto_identitas -> getPhoto(IDENTITY_PICK_CODE)
             R.id.btn_foto_bukti_dokter -> getPhoto(STR_PICK_CODE)
-            R.id.btn_ajukan -> uploadImagesStatus()
+            R.id.btn_ajukan -> uploadForm()
         }
     }
 
@@ -147,14 +153,14 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 IDENTITY_PICK_CODE -> {
-                    img_identity.visibility = View.VISIBLE
+                    imgIdentity!!.visibility = View.VISIBLE
                     val uri: Uri? = data!!.data
-                    img_identity.setImageURI(uri)
+                    imgIdentity!!.setImageURI(uri)
                 }
                 STR_PICK_CODE -> {
-                    img_str.visibility = View.VISIBLE
+                    imgStr!!.visibility = View.VISIBLE
                     val uri: Uri? = data!!.data
-                    img_str.setImageURI(uri)
+                    imgStr!!.setImageURI(uri)
                 }
             }
         } else {
@@ -164,7 +170,9 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun uploadIdentity() {
         //Mendapatkan data dari ImageView sebagai Bytes
-        val identity = (img_identity!!.drawable as BitmapDrawable).bitmap
+        imgIdentity?.isDrawingCacheEnabled = true
+        imgIdentity?.buildDrawingCache()
+        val identity = (imgIdentity!!.drawable as BitmapDrawable).bitmap
         val stream = ByteArrayOutputStream()
 
         //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
@@ -173,10 +181,11 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
 
         //Lokasi lengkap dimana gambar akan disimpan
 
+        val namaDokter = edt_form_nama_dokter.text.toString()
         val namaFile = UUID.randomUUID().toString() + ".jpg"
-        val pathImage = storageReference.child("gambar/ $namaFile")
+        val pathImage = storageReference.child("$namaDokter/$namaFile")
         val pathInsert = pathImage.downloadUrl.toString()
-        photoIdentity?.setText(pathInsert);
+        photoIdentity?.setText(pathInsert)
 
         val uploadTask = storageReference.child(pathImage.toString()).putBytes(bytes)
         uploadTask
@@ -191,7 +200,9 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun uploadStr() {
         //Mendapatkan data dari ImageView sebagai Bytes
-        val str = (img_str!!.drawable as BitmapDrawable).bitmap
+        imgStr?.isDrawingCacheEnabled = true
+        imgStr?.buildDrawingCache()
+        val str = (imgStr!!.drawable as BitmapDrawable).bitmap
         val stream = ByteArrayOutputStream()
 
         //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
@@ -200,43 +211,43 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
 
         //Lokasi lengkap dimana gambar akan disimpan
 
+        val namaDokter = edt_form_nama_dokter.text.toString()
         val namaFile = UUID.randomUUID().toString() + ".jpg"
-        val pathImage = storageReference.child("gambar/ $namaFile")
+        val pathImage = storageReference.child("$namaDokter/$namaFile")
         val pathInsert = pathImage.downloadUrl.toString()
-        photoStr?.setText(pathInsert);
+        photoStr?.setText(pathInsert)
 
         val uploadTask = storageReference.child(pathImage.toString()).putBytes(bytes)
         uploadTask
             .addOnSuccessListener {
                 Toast.makeText(this, "Uploading Successful", Toast.LENGTH_SHORT).show()
-                uploadStrSuccess = true
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Uploading Failed", Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun uploadImagesStatus() {
+    private fun uploadForm() {
         uploadIdentity()
-        uploadStr()
+//        uploadStr()
         pengajuanForm()
     }
 
     private fun validateForm(name: String, id: String, photoIdentity: String, photoStr: String): Boolean {
         if (TextUtils.isEmpty(name)) {
-            showToast(applicationContext, "Enter category!")
+            showToast(applicationContext, "Data tidak boleh kosong!")
             return false
         }
         if (TextUtils.isEmpty(id)) {
-            showToast(applicationContext, "Enter field!")
+            showToast(applicationContext, "Data tidak boleh kosong!")
             return false
         }
         if (TextUtils.isEmpty(photoIdentity)) {
-            showToast(applicationContext, "Enter field!")
+            showToast(applicationContext, "Data tidak boleh kosong!")
             return false
         }
         if (TextUtils.isEmpty(photoStr)) {
-            showToast(applicationContext, "Enter field!")
+            showToast(applicationContext, "Data tidak boleh kosong!")
             return false
         }
         return true
