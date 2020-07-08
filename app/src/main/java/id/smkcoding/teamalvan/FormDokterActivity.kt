@@ -89,7 +89,6 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
 
         if (validateForm(getName, getDoctorID, getPhotoIdentity, getPhotoStr)) {
             val doctor = DoctorModel(
-                getUserID,
                 getName,
                 getGender,
                 getDoctorCat,
@@ -97,7 +96,8 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
                 getPhotoIdentity,
                 getPhotoStr
             )
-            databaseReference.child("tb_calon_dokter")
+            databaseReference.child(getUserID)
+                .child("tb_calon_dokter")
                 .push()
                 .setValue(doctor)
                 .addOnCompleteListener {
