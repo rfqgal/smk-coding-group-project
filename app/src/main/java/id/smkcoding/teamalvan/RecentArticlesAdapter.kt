@@ -16,16 +16,30 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import id.smkcoding.teamalvan.model.ArticlesModel
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_my_article.*
+import kotlinx.android.synthetic.main.item_recent_article.*
+import kotlinx.android.synthetic.main.item_recent_article.img_cover_berita
+import kotlinx.android.synthetic.main.item_recent_article.img_dokter_artikel_terbaru
+import kotlinx.android.synthetic.main.item_recent_article.tv_deskripsi_artikel_terbaru
+import kotlinx.android.synthetic.main.item_recent_article.tv_dokter_artikel_terbaru
+import kotlinx.android.synthetic.main.item_recent_article.tv_judul_artikel_terbaru
+import kotlinx.android.synthetic.main.item_recent_article.tv_waktu
 
-class ArticlesAdapter(private val context: Context, private val list: ArrayList<ArticlesModel>) :
-    RecyclerView.Adapter<ArticlesAdapter.ViewHolder> () {
+class RecentArticlesAdapter(private val context: Context, private val list: ArrayList<ArticlesModel>) :
+    RecyclerView.Adapter<RecentArticlesAdapter.ViewHolder> () {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        LayoutInflater.from(context).inflate(R.layout.item_my_article, parent, false)
+        LayoutInflater.from(context).inflate(R.layout.item_recent_article, parent, false)
     )
     override fun getItemCount(): Int {
-        return list.size
+        val batasArtikel = 2
+        when{
+            list.size > batasArtikel ->
+                return batasArtikel
+            else ->{
+                return list.size
+            }
+        }
+
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(list.get(position))
@@ -66,7 +80,7 @@ class ArticlesAdapter(private val context: Context, private val list: ArrayList<
         lateinit var ref : DatabaseReference
         lateinit var auth: FirebaseAuth
 
-        holder.txt_read_more.setOnClickListener(View.OnClickListener {
+        holder.tv_read_more.setOnClickListener(View.OnClickListener {
             val bundle = Bundle()
             bundle.putString("dataTitle", list.get(position).title)
             bundle.putString("dataTime", list.get(position).time)
@@ -82,48 +96,48 @@ class ArticlesAdapter(private val context: Context, private val list: ArrayList<
         })
 
 
-        holder.btn_more.setOnClickListener(View.OnClickListener { view ->
-            val action = arrayOf("Update", "Delete")
-            val alert = AlertDialog.Builder(view.context)
-            alert.setItems(action) { dialog, i ->
-                when (i) {
-                    0 -> {
-
-                        val bundle = Bundle()
-                        bundle.putString("dataTitle", list.get(position).title)
-                        bundle.putString("dataTime", list.get(position).time)
-                        bundle.putString("dataNameDokter", list.get(position).name_dokter)
-                        bundle.putString("dataCategory", list.get(position).category)
-                        bundle.putString("dataCaption", list.get(position).caption)
-                        bundle.putString("getPrimaryKey", list.get(position).key)
-
-                        val intent = Intent(view.context, UpdateArticlesActivity::class.java)
-                        intent.putExtras(bundle)
-                        context.startActivity(intent)
-                    }
-                    1 -> {
-                        auth = FirebaseAuth.getInstance()
-                        ref = FirebaseDatabase.getInstance().getReference()
-                        val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
-                        if (ref != null) {
-                            ref.child(getUserID)
-                                .child("tb_articles")
-                                .child(list.get(position)?.key.toString())
-                                .removeValue()
-                                .addOnSuccessListener {
-                                    Toast.makeText(
-                                        context, "Data Berhasil Dihapus",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                        }
-                    }
-                }
-            }
-            alert.create()
-            alert.show()
-            true
-        })
+//        holder.btn_more.setOnClickListener(View.OnClickListener { view ->
+//            val action = arrayOf("Update", "Delete")
+//            val alert = AlertDialog.Builder(view.context)
+//            alert.setItems(action) { dialog, i ->
+//                when (i) {
+//                    0 -> {
+//
+//                        val bundle = Bundle()
+//                        bundle.putString("dataTitle", list.get(position).title)
+//                        bundle.putString("dataTime", list.get(position).time)
+//                        bundle.putString("dataNameDokter", list.get(position).name_dokter)
+//                        bundle.putString("dataCategory", list.get(position).category)
+//                        bundle.putString("dataCaption", list.get(position).caption)
+//                        bundle.putString("getPrimaryKey", list.get(position).key)
+//
+//                        val intent = Intent(view.context, UpdateArticlesActivity::class.java)
+//                        intent.putExtras(bundle)
+//                        context.startActivity(intent)
+//                    }
+//                    1 -> {
+//                        auth = FirebaseAuth.getInstance()
+//                        ref = FirebaseDatabase.getInstance().getReference()
+//                        val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
+//                        if (ref != null) {
+//                            ref.child(getUserID)
+//                                .child("tb_articles")
+//                                .child(list.get(position)?.key.toString())
+//                                .removeValue()
+//                                .addOnSuccessListener {
+//                                    Toast.makeText(
+//                                        context, "Data Berhasil Dihapus",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//                        }
+//                    }
+//                }
+//            }
+//            alert.create()
+//            alert.show()
+//            true
+//        })
 
     }
     class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),

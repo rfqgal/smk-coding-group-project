@@ -7,6 +7,7 @@ import android.view.*
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_my_articles.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_user.*
+import kotlinx.android.synthetic.main.item_my_article.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -61,6 +63,9 @@ class UserFragment: Fragment() {
         val user = mAuth!!.currentUser
         tv_profile_name.text = user?.displayName
         tv_profile_username.text = user?.email
+        Glide.with(this)
+            .load(user?.photoUrl)
+            .into(img_profile_pic);
     }
 
     private fun signOut() {

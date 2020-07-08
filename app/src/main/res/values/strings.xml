@@ -8,10 +8,8 @@
     <string name="fb_login_protocol_scheme">fb1940375569428429</string>
 
     <string-array name="kategori_artikel">
-        <item>Category 1</item>
-        <item>Category 2</item>
-        <item>Category 3</item>
-        <item>Category 4</item>
-        <item>Category 5</item>
+        <item>List Category</item>
+        <item>Health</item>
+        <item>Lifestyle</item>
     </string-array>
 </resources>

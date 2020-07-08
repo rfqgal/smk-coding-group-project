@@ -50,6 +50,18 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="right"
+            android:text="Show More"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/txt_show_more"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_recent_article"
             android:layout_width="match_parent"

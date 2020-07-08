@@ -35,14 +35,14 @@ class MyArticlesActivity : AppCompatActivity() {
 
     private fun getData() {
         //Mendapatkan Referensi Database
-        Toast.makeText(this, "Mohon Tunggu Sebentar...", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Please Wait", Toast.LENGTH_LONG).show()
         auth = FirebaseAuth.getInstance()
         val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
         ref = FirebaseDatabase.getInstance().getReference()
         ref.child(getUserID).child("tb_articles").addValueEventListener(object :
             ValueEventListener { override fun onCancelled(p0: DatabaseError) {
             Toast.makeText(
-                this@MyArticlesActivity, "Database Error yaa...", Toast.LENGTH_LONG).show()
+                this@MyArticlesActivity, "Database Error", Toast.LENGTH_LONG).show()
         }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -59,7 +59,7 @@ class MyArticlesActivity : AppCompatActivity() {
                 rv_my_article.layoutManager = LinearLayoutManager(this@MyArticlesActivity)
                 rv_my_article.adapter = ArticlesAdapter(this@MyArticlesActivity, dataArticles)
                 Toast.makeText(
-                    this@MyArticlesActivity, "Data Berhasil Dimuat",
+                    this@MyArticlesActivity, "Load Data Successful",
                     Toast.LENGTH_LONG).show()
             }
         })
