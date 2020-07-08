@@ -39,9 +39,6 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
     private var photoIdentity: EditText? = null
     private var photoStr: EditText? = null
 
-    private var uploadIdentitySuccess: Boolean = false
-    private var uploadStrSuccess: Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form_dokter)
@@ -168,41 +165,11 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun uploadIdentity() {
+    private fun uploadImage(imageView: ImageView?) {
         //Mendapatkan data dari ImageView sebagai Bytes
-        imgIdentity?.isDrawingCacheEnabled = true
-        imgIdentity?.buildDrawingCache()
-        val identity = (imgIdentity!!.drawable as BitmapDrawable).bitmap
-        val stream = ByteArrayOutputStream()
-
-        //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
-        identity.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        val bytes: ByteArray = stream.toByteArray()
-
-        //Lokasi lengkap dimana gambar akan disimpan
-
-        val namaDokter = edt_form_nama_dokter.text.toString()
-        val namaFile = UUID.randomUUID().toString() + ".jpg"
-        val pathImage = storageReference.child("$namaDokter/$namaFile")
-        val pathInsert = pathImage.downloadUrl.toString()
-        photoIdentity?.setText(pathInsert)
-
-        val uploadTask = storageReference.child(pathImage.toString()).putBytes(bytes)
-        uploadTask
-            .addOnSuccessListener {
-                Toast.makeText(this, "Uploading Successful", Toast.LENGTH_SHORT).show()
-                uploadIdentitySuccess = true
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Uploading Failed", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun uploadStr() {
-        //Mendapatkan data dari ImageView sebagai Bytes
-        imgStr?.isDrawingCacheEnabled = true
-        imgStr?.buildDrawingCache()
-        val str = (imgStr!!.drawable as BitmapDrawable).bitmap
+        imageView?.isDrawingCacheEnabled = true
+        imageView?.buildDrawingCache()
+        val str = (imageView!!.drawable as BitmapDrawable).bitmap
         val stream = ByteArrayOutputStream()
 
         //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
@@ -220,34 +187,34 @@ class FormDokterActivity : AppCompatActivity(), View.OnClickListener {
         val uploadTask = storageReference.child(pathImage.toString()).putBytes(bytes)
         uploadTask
             .addOnSuccessListener {
-                Toast.makeText(this, "Uploading Successful", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Berhasil diunggah", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Uploading Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Gagal mengunggah", Toast.LENGTH_SHORT).show()
             }
     }
 
     private fun uploadForm() {
-        uploadIdentity()
-        uploadStr()
+        uploadImage(imgIdentity)
+        uploadImage(imgStr)
         pengajuanForm()
     }
 
     private fun validateForm(name: String, id: String, photoIdentity: String, photoStr: String): Boolean {
         if (TextUtils.isEmpty(name)) {
-            showToast(applicationContext, "Data tidak boleh kosong!")
+            showToast(applicationContext, "Nama tidak boleh kosong!")
             return false
         }
         if (TextUtils.isEmpty(id)) {
-            showToast(applicationContext, "Data tidak boleh kosong!")
+            showToast(applicationContext, "ID Dokter tidak boleh kosong!")
             return false
         }
         if (TextUtils.isEmpty(photoIdentity)) {
-            showToast(applicationContext, "Data tidak boleh kosong!")
+            showToast(applicationContext, "Foto Identitas tidak boleh kosong!")
             return false
         }
         if (TextUtils.isEmpty(photoStr)) {
-            showToast(applicationContext, "Data tidak boleh kosong!")
+            showToast(applicationContext, "Foto STR tidak boleh kosong!")
             return false
         }
         return true
