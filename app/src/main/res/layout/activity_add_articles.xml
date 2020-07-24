@@ -28,23 +28,24 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:entries="@array/kategori_artikel"/>
-    <EditText
-        android:id="@+id/cover"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Cover"
-        android:enabled="false"
-        android:clickable="false"
-        android:focusable="false"
-        android:inputType="textPersonName"/>
+<!--    <EditText-->
+<!--        android:id="@+id/cover"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:hint="Cover"-->
+<!--        android:enabled="false"-->
+<!--        android:clickable="false"-->
+<!--        android:focusable="false"-->
+<!--        android:inputType="textPersonName"/>-->
 
     <ImageView
         android:id="@+id/imageContainer"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        android:visibility="gone" />
+        android:layout_margin="10dp"
+        android:background="#D1CECE"
+        android:scaleType="centerCrop"/>
 
     <Button
         android:id="@+id/select_image"

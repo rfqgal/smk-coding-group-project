@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="144dp"
             android:background="#CCC"
-            android:src="@drawable/ic_android" />
+            android:src="@drawable/ic_android"
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="match_parent"

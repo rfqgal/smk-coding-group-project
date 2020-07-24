@@ -14,12 +14,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import id.smkcoding.teamalvan.model.ArticlesModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_my_article.*
 
 class ArticlesAdapter(private val context: Context, private val list: ArrayList<ArticlesModel>) :
     RecyclerView.Adapter<ArticlesAdapter.ViewHolder> () {
+
+    lateinit var storageRef: StorageReference
+    lateinit var ref : DatabaseReference
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(context).inflate(R.layout.item_my_article, parent, false)
@@ -33,36 +37,25 @@ class ArticlesAdapter(private val context: Context, private val list: ArrayList<
         //Mengambil Value di RecyclerView berdasarkan Posisi Tertentu
         val Title: String? = list.get(position).title
         val Time: String? = list.get(position).time
-        val Cover: String? = list.get(position).cover
         val Name: String? = list.get(position).name_dokter
         val Caption: String? = list.get(position).caption
         val PhotoProfile: String? = list.get(position).photo_dokter
-        val storage = FirebaseStorage.getInstance()
-        val gsReference = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/chalenge3-e740d.appspot.com/o/gambar%2F7c02a166-6971-460f-ae49-9c946862bd0d.jpg?alt=media&token=20486837-b5bd-4cfa-b48a-c40942aa5de0")
-//        ("gs://chalenge3-e740d.appspot.com/gambar/7c02a166-6971-460f-ae49-9c946862bd0d.jpg")
+        val Cover: String? = list.get(position).cover
+        ref = FirebaseDatabase.getInstance().getReference()
+        storageRef = FirebaseStorage.getInstance().getReference("Cover")
 
         //Memasukan Nilai/Value ke dalam View (TextView: Nama, Email, Telp, Alamat)
         holder.tv_judul_artikel_terbaru.setText("$Title")
         holder.tv_waktu.setText("$Time")
         holder.tv_dokter_artikel_terbaru.setText("$Name")
-//        holder.txtFriendAlamat.setText("$PhotoProfile")
         holder.tv_deskripsi_artikel_terbaru.setText("$Caption")
-
-
         Glide.with(context)
             .load("$PhotoProfile")
             .into(holder.img_dokter_artikel_terbaru);
-
         Glide.with(context)
-            .load("$gsReference")
+            .load("$Cover")
             .into(holder.img_cover_berita);
 
-//        Glide.with(context)
-//            .load("gs://chalenge3-e740d.appspot.com/gambar/7c02a166-6971-460f-ae49-9c946862bd0d.jpg")
-//            .into(holder.img_cover_berita);
-
-        //Deklarasi objek dari Interfece
-//        val listener: dataListener? = null
         lateinit var ref : DatabaseReference
         lateinit var auth: FirebaseAuth
 
@@ -73,6 +66,7 @@ class ArticlesAdapter(private val context: Context, private val list: ArrayList<
             bundle.putString("dataPhotoDokter", list.get(position).photo_dokter)
             bundle.putString("dataNameDokter", list.get(position).name_dokter)
             bundle.putString("dataCaption", list.get(position).caption)
+            bundle.putString("dataCover", list.get(position).cover)
             bundle.putString("getPrimaryKey", list.get(position).key)
 
             val intent = Intent(context, ReadMoreArticlesActivity::class.java)
@@ -95,6 +89,7 @@ class ArticlesAdapter(private val context: Context, private val list: ArrayList<
                         bundle.putString("dataNameDokter", list.get(position).name_dokter)
                         bundle.putString("dataCategory", list.get(position).category)
                         bundle.putString("dataCaption", list.get(position).caption)
+                        bundle.putString("dataCover", list.get(position).cover)
                         bundle.putString("getPrimaryKey", list.get(position).key)
 
                         val intent = Intent(view.context, UpdateArticlesActivity::class.java)
@@ -112,7 +107,7 @@ class ArticlesAdapter(private val context: Context, private val list: ArrayList<
                                 .removeValue()
                                 .addOnSuccessListener {
                                     Toast.makeText(
-                                        context, "Data Berhasil Dihapus",
+                                        context, "Deleted Successful",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }

@@ -32,16 +32,15 @@ class AddArticlesActivity : AppCompatActivity() {
     private var Caption: EditText? = null
     private var Category: Spinner? = null
     private var Cover: EditText? = null
-    lateinit var ref : DatabaseReference
+    lateinit var ref: DatabaseReference
     private var auth: FirebaseAuth? = null
-    private lateinit var button : ImageButton
+    private lateinit var button: ImageButton
 
     //Post Image
-    private var ImageContainer: ImageView? = null
     private var reference: StorageReference? = null
-    private var REQUEST_CODE_CAMERA = 1
-    private var REQUEST_CODE_GALLERY = 2
     private var progressBar: ProgressBar? = null
+    private var imgPath: Uri? = null
+    private var PICK_IMAGE_REQUEST = 71
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,50 +51,43 @@ class AddArticlesActivity : AppCompatActivity() {
         Title = findViewById<EditText>(R.id.txt_title)
         Caption = findViewById<EditText>(R.id.txt_caption)
         Category = findViewById<Spinner>(R.id.category)
-        Cover = findViewById<EditText>(R.id.cover)
+//        Cover = findViewById<EditText>(R.id.cover)
+        reference = FirebaseStorage.getInstance().getReference("Cover");
         ref = FirebaseDatabase.getInstance().getReference()
         auth = FirebaseAuth.getInstance()
 
-        ImageContainer = findViewById(R.id.imageContainer);
         progressBar = findViewById(R.id.progressBar);
-        reference = FirebaseStorage.getInstance().getReference();
-        select_image.setOnClickListener{
+
+        select_image.setOnClickListener {
             getImage()
         }
 
-        simpan.setOnClickListener{
-            uploadImage()
+        simpan.setOnClickListener {
+            prosesSave()
         }
 
 
     }
 
     private fun getImage() {
-        val menu =
-            arrayOf<CharSequence>("Camera", "Galery")
-            val dialog: AlertDialog.Builder = AlertDialog.Builder(this)
-            .setTitle("Upload Image")
-            .setItems(menu, DialogInterface.OnClickListener { dialog, which ->
-                when (which) {
-                    0 -> {
-                        val imageIntentCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        startActivityForResult(imageIntentCamera, REQUEST_CODE_CAMERA)
-                    }
-                    1 -> {
-                        val imageIntentGallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                        startActivityForResult(imageIntentGallery, REQUEST_CODE_GALLERY)
-                    }
-                }
-            })
-        dialog.create()
-        dialog.show()
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            imgPath = data?.data
+            imageContainer.setImageURI(imgPath)
+        }
     }
 
     private fun prosesSave() {
         val getTitle: String = Title?.getText().toString()
         val getCaption: String = Caption?.getText().toString()
         val getCategory: String = Category?.getSelectedItem().toString()
-        val getCover: String = Cover?.getText().toString()
+//        val getCover: String = Cover?.getText().toString()
         val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
         val current = SimpleDateFormat("yyyy-MM-dd")
         val getTime = current.format(Date())
@@ -103,77 +95,95 @@ class AddArticlesActivity : AppCompatActivity() {
         val getNameDokter: String = auth?.getCurrentUser()?.displayName.toString()
         val getPhotoDokter: String = auth?.getCurrentUser()?.photoUrl.toString()
 
-        if (getTitle.isEmpty() && getCaption.isEmpty() && getCategory.isEmpty() && getCover.isEmpty()) {
-            //Jika kosong, maka akan menampilkan pesan singkat berikut ini.
-            Toast.makeText(this@AddArticlesActivity,"Data Can't Be Empty", Toast.LENGTH_SHORT).show()
-        } else {
-            val articles = ArticlesModel(getUserID, getNameDokter, getPhotoDokter, getTime, getTitle, getCaption, getCategory, getCover, getPrimaryKey)
-            //struktur databasenya adalah: ID >> Teman >> Key >> Data
-            ref.child(getUserID).child("tb_articles").push().setValue(articles).addOnCompleteListener {
-                Toast.makeText(this, "Posting Successful", Toast.LENGTH_SHORT).show()
+//        if (getTitle.isEmpty() && getCaption.isEmpty() && getCategory.isEmpty() && getCover.isEmpty()) {
+//            Toast.makeText(this@AddArticlesActivity,"Data Can't Be Empty", Toast.LENGTH_SHORT).show()
+//        } else {
+//            val articles = ArticlesModel(getUserID, getNameDokter, getPhotoDokter, getTime, getTitle, getCaption, getCategory, getCover, getPrimaryKey)
+//            ref.child(getUserID).child("tb_articles").push().setValue(articles).addOnCompleteListener {
+//                Toast.makeText(this, "Posting Successful", Toast.LENGTH_SHORT).show()
+//            }
+//            val intent = Intent (this, MyArticlesActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
+
+        when {
+            getTitle.isEmpty() -> txt_title.error = "Can't be empty"
+            getCaption.isEmpty() -> txt_caption.error = "Can't be empty"
+            else -> {
+                if (imgPath == null) {
+                    Toast.makeText(this@AddArticlesActivity, "Can't be empty", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    finish()
+                    Toast.makeText(this@AddArticlesActivity, "Uploading...", Toast.LENGTH_LONG)
+                        .show()
+                    reference?.child(getUserID)?.putFile(imgPath!!)?.addOnSuccessListener {
+                        reference?.child(getUserID)?.downloadUrl?.addOnSuccessListener {
+                            val articles = ArticlesModel(
+                                getUserID,
+                                getNameDokter,
+                                getPhotoDokter,
+                                getTime,
+                                getTitle,
+                                getCaption,
+                                getCategory,
+                                it.toString(),
+                                getPrimaryKey
+                            )
+                            ref.child(getUserID).child("tb_articles").push().setValue(articles)
+                                .addOnCompleteListener {}
+                        }
+                    }
+                        ?.addOnFailureListener {
+                            Toast.makeText(this@AddArticlesActivity, it.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                }
             }
-            val intent = Intent (this, MyArticlesActivity::class.java)
-            startActivity(intent)
-            finish()
         }
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
 
-        when (requestCode) {
-            REQUEST_CODE_CAMERA -> if (resultCode === Activity.RESULT_OK) {
-                ImageContainer!!.visibility = View.VISIBLE
-                val bitmap = data!!.extras!!["data"] as Bitmap?
-                ImageContainer!!.setImageBitmap(bitmap)
-            }
-            REQUEST_CODE_GALLERY -> if (resultCode === Activity.RESULT_OK) {
-                ImageContainer!!.visibility = View.VISIBLE
-                val uri: Uri? = data!!.data
-                ImageContainer!!.setImageURI(uri)
-            }
-        }
-
-    }
-
-    private fun uploadImage() {
-        //Mendapatkan data dari ImageView sebagai Bytes
-        ImageContainer?.isDrawingCacheEnabled = true
-        ImageContainer?.buildDrawingCache()
-        var bitmap = (ImageContainer!!.drawable as BitmapDrawable).bitmap
-        var stream = ByteArrayOutputStream()
-
-        //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        var bytes: ByteArray = stream.toByteArray()
-
-        //Lokasi lengkap dimana gambar akan disimpan
-
-        var namaFile = UUID.randomUUID().toString() + ".jpg"
-        var pathImage = reference?.child("gambar/ $namaFile")
-        var pathInsert = pathImage?.downloadUrl.toString()
-        Cover?.setText(pathInsert);
-
-//        pathImage?.downloadUrl?.addOnSuccessListener(OnSuccessListener<Uri> { uri ->
-//            val downloadUrl = uri.toString()
-//            Cover?.setText(downloadUrl);
+//    private fun uploadImage() {
+//        //Mendapatkan data dari ImageView sebagai Bytes
+//        ImageContainer?.isDrawingCacheEnabled = true
+//        ImageContainer?.buildDrawingCache()
+//        var bitmap = (ImageContainer!!.drawable as BitmapDrawable).bitmap
+//        var stream = ByteArrayOutputStream()
 //
-//        })
-
-        var uploadTask = reference!!.child(pathImage.toString()).putBytes(bytes)
-        uploadTask.addOnSuccessListener {
-            progressBar?.setVisibility(View.GONE)
-            Toast.makeText(this@AddArticlesActivity, "Uploading Successful", Toast.LENGTH_SHORT).show()
-            prosesSave()
-        }
-            .addOnFailureListener {
-                progressBar?.setVisibility(View.GONE)
-                Toast.makeText(this@AddArticlesActivity, "Uploading Failed", Toast.LENGTH_SHORT).show()
-            }
-            .addOnProgressListener { taskSnapshot ->
-                progressBar?.setVisibility(View.VISIBLE)
-                var progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
-                progressBar?.setProgress(progress.toInt())
-            }
+//        //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+//        var bytes: ByteArray = stream.toByteArray()
+//
+//        //Lokasi lengkap dimana gambar akan disimpan
+//
+//        var namaFile = UUID.randomUUID().toString() + ".jpg"
+//        var pathImage = reference?.child("gambar/ $namaFile")
+//        var pathInsert = pathImage?.downloadUrl.toString()
+//        Cover?.setText(pathInsert);
+//
+////        pathImage?.downloadUrl?.addOnSuccessListener(OnSuccessListener<Uri> { uri ->
+////            val downloadUrl = uri.toString()
+////            Cover?.setText(downloadUrl);
+////
+////        })
+//
+//        var uploadTask = reference!!.child(pathImage.toString()).putBytes(bytes)
+//        uploadTask.addOnSuccessListener {
+//            progressBar?.setVisibility(View.GONE)
+//            Toast.makeText(this@AddArticlesActivity, "Uploading Successful", Toast.LENGTH_SHORT).show()
+//            prosesSave()
+//        }
+//            .addOnFailureListener {
+//                progressBar?.setVisibility(View.GONE)
+//                Toast.makeText(this@AddArticlesActivity, "Uploading Failed", Toast.LENGTH_SHORT).show()
+//            }
+//            .addOnProgressListener { taskSnapshot ->
+//                progressBar?.setVisibility(View.VISIBLE)
+//                var progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+//                progressBar?.setProgress(progress.toInt())
+//            }
+//    }
     }
 }

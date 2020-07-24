@@ -29,12 +29,12 @@
 <!--        android:layout_margin="10dp"-->
 <!--        android:hint="Category"-->
 <!--        android:inputType="textPersonName" />-->
-    <Spinner
-        android:id="@+id/category_new"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:entries="@array/kategori_artikel"/>
+<!--    <Spinner-->
+<!--        android:id="@+id/category_new"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:entries="@array/kategori_artikel"/>-->
 <!--    <EditText-->
 <!--        android:id="@+id/cover_new"-->
 <!--        android:layout_width="match_parent"-->
@@ -42,6 +42,23 @@
 <!--        android:layout_margin="10dp"-->
 <!--        android:hint="Cover"-->
 <!--        android:inputType="textPersonName" />-->
+    <ImageView
+        android:id="@+id/imageContainer_new"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="#D1CECE"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/select_image_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Select Cover"
+        android:visibility="visible"
+        style="@style/FirebaseUI.Button"
+        android:background="@drawable/btn_rounded"/>
     <Button
         android:id="@+id/update"
         android:layout_width="match_parent"

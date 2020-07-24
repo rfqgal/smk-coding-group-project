@@ -3,6 +3,7 @@ package id.smkcoding.teamalvan
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -18,6 +19,7 @@ class ReadMoreArticlesActivity : AppCompatActivity() {
     lateinit var timeMore: TextView
     lateinit var nameDokterMore: TextView
     lateinit var photoDokterMore: CircleImageView
+    lateinit var coverMore: ImageView
     lateinit var ref : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,7 @@ class ReadMoreArticlesActivity : AppCompatActivity() {
         timeMore = findViewById(R.id.tv_waktu_more)
         nameDokterMore = findViewById(R.id.tv_dokter_artikel_more)
         photoDokterMore = findViewById(R.id.img_dokter_artikel_more)
+        coverMore = findViewById(R.id.img_cover_berita_more)
         getData()
 
     }
@@ -41,6 +44,7 @@ class ReadMoreArticlesActivity : AppCompatActivity() {
         val getTime: String = getIntent().getExtras()?.getString("dataTime").toString()
         val getNameDokter: String = getIntent().getExtras()?.getString("dataNameDokter").toString()
         val getPhotoDokter: String = getIntent().getExtras()?.getString("dataPhotoDokter").toString()
+        val getCover: String = getIntent().getExtras()?.getString("dataCover").toString()
         titleMore?.setText(getTitle);
         captionMore?.setText(getCaption);
         timeMore?.setText(getTime);
@@ -48,5 +52,8 @@ class ReadMoreArticlesActivity : AppCompatActivity() {
         Glide.with(this)
             .load(getPhotoDokter)
             .into(photoDokterMore);
+        Glide.with(this)
+            .load(getCover)
+            .into(coverMore);
     }
 }
