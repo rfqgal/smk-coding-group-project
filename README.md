@@ -2,6 +2,13 @@
   Aplikasi HealTalk adalah sebuah aplikasi mobile untuk data corona virus dan
   Konsultadi kepada dokter untuk keperluan Challange 3 Team SMKCoding Online 2020
 
+  1.Kotlin Language 
+  2.Firebase Database
+  3.Firebase Cloude Massanging
+  4.Firebase Authentication
+  5.Retrofit
+  6.API (kawalcorona.com)
+
 ## Screenshot Apk
   <b>Login</b>
 ![Screenshot_2020-07-25-12-30-13-09_ee952111bfbbd758c11383a4001bf814](https://user-images.githubusercontent.com/58157142/88449658-c7172d80-ce72-11ea-9a41-c759e397d8b4.png)
