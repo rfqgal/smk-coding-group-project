@@ -3,11 +3,17 @@
   Konsultadi kepada dokter untuk keperluan Challange 3 Team SMKCoding Online 2020
 
   1.Kotlin Language 
+
   2.Firebase Database
+
   3.Firebase Cloude Massanging
+
   4.Firebase Authentication
+
   5.Retrofit
+
   6.API (kawalcorona.com)
+
 
 ## Screenshot Apk
   <b>Login</b>
