@@ -1,4 +1,6 @@
 # HealTalk
+  Aplikasi HealTalk adalah sebuah aplikasi mobile untuk data corona virus dan
+  Konsultadi kepada dokter untuk keperluan Challange 3 Team SMKCoding Online 2020
 
 ## Screenshot Apk
   <b>Login</b>
