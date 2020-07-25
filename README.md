@@ -20,5 +20,6 @@
 ![Screenshot_2020-07-25-12-23-42-04_ee952111bfbbd758c11383a4001bf814](https://user-images.githubusercontent.com/58157142/88449780-dea2e600-ce73-11ea-9aef-96a5eb55b942.png)
 
   <b>Create Articles</b>
+![Screenshot_2020-07-25-12-24-00-67_ee952111bfbbd758c11383a4001bf814](https://user-images.githubusercontent.com/58157142/88449811-3e00f600-ce74-11ea-917f-7c4199b0d7cb.png)
 
   <b>Create Consultation</b>
